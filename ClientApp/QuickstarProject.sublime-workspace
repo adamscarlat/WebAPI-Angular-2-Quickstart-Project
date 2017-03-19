@@ -1,0 +1,664 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"tr",
+				"templateUrl\tproperty"
+			],
+			[
+				"im",
+				"import\tkeyword"
+			],
+			[
+				"pri",
+				"private\tkeyword"
+			],
+			[
+				"sty",
+				"styleUrls\tproperty"
+			],
+			[
+				"tem",
+				"templateUrl\tproperty"
+			],
+			[
+				"de",
+				"decoratedFunc"
+			],
+			[
+				"m",
+				"myFunc2"
+			],
+			[
+				"myD",
+				"myDecoratorWithArguments〔function〕"
+			],
+			[
+				"my",
+				"myFunc〔function〕"
+			],
+			[
+				"app",
+				"app-routing.module\tscript"
+			],
+			[
+				"imp",
+				"implements\tkeyword"
+			],
+			[
+				"her",
+				"hero.service\tscript"
+			],
+			[
+				"impo",
+				"import\tkeyword"
+			],
+			[
+				"Hero",
+				"HeroService\talias"
+			],
+			[
+				"p",
+				"providers\tproperty"
+			],
+			[
+				"In",
+				"Input\talias"
+			],
+			[
+				"th",
+				"threadPool〔variable〕"
+			],
+			[
+				"loc",
+				"lockDictionaly〔variable〕"
+			],
+			[
+				"lo",
+				"lockFinalFileCount〔variable〕"
+			],
+			[
+				"outpu",
+				"outputLine〔variable〕"
+			],
+			[
+				"wr",
+				"writelines〔function〕"
+			],
+			[
+				"ou",
+				"outputLine〔variable〕"
+			],
+			[
+				"w",
+				"writelines〔function〕"
+			],
+			[
+				"out",
+				"outputFile〔argument〕"
+			],
+			[
+				"arg",
+				"args〔variable〕"
+			],
+			[
+				"TC",
+				"TCP_PORT"
+			],
+			[
+				"fin",
+				"finalFileToMatches〔variable〕"
+			],
+			[
+				"pa",
+				"path"
+			],
+			[
+				"star",
+				"startTime"
+			],
+			[
+				"file",
+				"fileExtension"
+			],
+			[
+				"fil",
+				"file_extension〔variable〕"
+			],
+			[
+				"if",
+				"ifmain\tif __name__ == '__main__'"
+			],
+			[
+				"new",
+				"newPath"
+			],
+			[
+				"get",
+				"getDirContents〔function〕"
+			],
+			[
+				"list",
+				"listdir〔module〕"
+			],
+			[
+				"F",
+				"FileErrorHandler"
+			],
+			[
+				"ex",
+				"exceptionHandlerDecorator"
+			],
+			[
+				"ar",
+				"args"
+			],
+			[
+				"st",
+				"startSearch〔function〕"
+			],
+			[
+				"sea",
+				"searchFile〔function〕"
+			],
+			[
+				"sys",
+				"sys.argv"
+			],
+			[
+				"def",
+				"defineArgParser〔function〕"
+			],
+			[
+				"in",
+				"inputParams〔argument〕"
+			],
+			[
+				"err",
+				"errors"
+			],
+			[
+				"e",
+				"errors"
+			],
+			[
+				"par",
+				"parsedParams〔variable〕"
+			],
+			[
+				"para",
+				"paramParts〔variable〕"
+			],
+			[
+				"ope",
+				"operators〔variable〕"
+			],
+			[
+				"seq",
+				"sequences"
+			],
+			[
+				"con",
+				"convertedSeq〔variable〕"
+			],
+			[
+				"re",
+				"reversed〔class〕"
+			],
+			[
+				"pe",
+				"permute2〔function〕"
+			],
+			[
+				"le",
+				"letter〔variable〕"
+			],
+			[
+				"s",
+				"scores"
+			],
+			[
+				"line",
+				"lineParts〔variable〕"
+			],
+			[
+				"read",
+				"readlines〔function〕"
+			],
+			[
+				"div",
+				"divSum1〔variable〕"
+			],
+			[
+				"di",
+				"divSum1"
+			],
+			[
+				"month",
+				"monthDays"
+			],
+			[
+				"mon",
+				"month"
+			],
+			[
+				"mont",
+				"months"
+			],
+			[
+				"end",
+				"endYear"
+			],
+			[
+				"n",
+				"n1"
+			],
+			[
+				"py",
+				"pyramid"
+			],
+			[
+				"r",
+				"right"
+			],
+			[
+				"wo",
+				"wordTens"
+			],
+			[
+				"te",
+				"tensDigit"
+			],
+			[
+				"wor",
+				"wordUnit"
+			],
+			[
+				"num",
+				"numsToWords"
+			],
+			[
+				"nu",
+				"numsToWords"
+			],
+			[
+				"pow",
+				"powerDigitSum"
+			],
+			[
+				"ma",
+				"maxSeq"
+			],
+			[
+				"max",
+				"maxSeq"
+			],
+			[
+				"c",
+				"countDivisors"
+			],
+			[
+				"d",
+				"divCount"
+			],
+			[
+				"t",
+				"tNumber"
+			],
+			[
+				"j",
+				"j_step"
+			],
+			[
+				"gr",
+				"gridWidth"
+			],
+			[
+				"pro",
+				"productLength"
+			],
+			[
+				"pr",
+				"productLength"
+			],
+			[
+				"grid",
+				"gridLength"
+			],
+			[
+				"row",
+				"rowNum"
+			],
+			[
+				"b",
+				"bSqr"
+			],
+			[
+				"a",
+				"aSqr"
+			],
+			[
+				"f",
+				"first"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "Packages/Python/Python.sublime-build",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 151.0,
+		"last_filter": "Package Control: insta",
+		"selected_items":
+		[
+			[
+				"Package Control: insta",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: ins",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: in",
+				"Package Control: Install Package"
+			],
+			[
+				"packa",
+				"Package Control: Install Package"
+			],
+			[
+				"pydoc",
+				"Python 2 Doc Search (PyDOC)"
+			],
+			[
+				"package control: ins",
+				"Package Control: Install Package"
+			],
+			[
+				"ins",
+				"Install Package Control"
+			]
+		],
+		"width": 648.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Users/a762198/Documents/quickstart",
+		"/C/Users/a762198/Documents/quickstart/src",
+		"/C/Users/a762198/Documents/quickstart/src/app"
+	],
+	"file_history":
+	[
+		"/C/Users/a762198/Documents/quickstart/src/app/hero-search.component.ts",
+		"/C/Users/a762198/Documents/quickstart/src/app/dashboard.component.ts",
+		"/C/Users/a762198/Documents/quickstart/src/app/app.module.ts",
+		"/C/Users/a762198/Documents/quickstart/src/app/dashboard.component.html",
+		"/C/Users/a762198/Documents/quickstart/src/app/hero.service.ts",
+		"/C/Users/a762198/Documents/quickstart/src/app/hero-search.service.ts",
+		"/C/Users/a762198/Documents/quickstart/src/app/hero-search.component.html",
+		"/C/Users/a762198/Documents/quickstart/src/app/hero-search.component.css",
+		"/C/Users/a762198/Documents/quickstart/src/app/heroes.component.ts",
+		"/C/Users/a762198/Documents/quickstart/src/app/hero-detail.component.html",
+		"/C/Users/a762198/Documents/quickstart/src/app/hero-detail.component.ts",
+		"/C/Users/a762198/Documents/quickstart/src/app/heroes.component.html",
+		"/C/Users/a762198/Documents/quickstart/src/app/heroes.component.css",
+		"/C/Users/a762198/Documents/quickstart/src/app/in-memory-data.service.ts",
+		"/C/Users/a762198/Documents/quickstart/src/app/app-routing.module.ts",
+		"/C/Users/a762198/Documents/quickstart/src/app/app.component.ts",
+		"/C/Users/a762198/Documents/quickstart/src/styles.css",
+		"/C/Users/a762198/Documents/quickstart/src/index.html",
+		"/C/Users/a762198/Documents/quickstart/src/app/app.component.css",
+		"/C/Users/a762198/Documents/quickstart/src/app/app.component.html",
+		"/C/Users/a762198/Documents/quickstart/src/app/hero-detail.component.css",
+		"/C/Users/a762198/Documents/quickstart/src/app/dashboard.component.css",
+		"/C/Users/a762198/Documents/quickstart/src/app/hero.service.js",
+		"/C/Users/a762198/Desktop/DecoratorTest.py",
+		"/C/Users/a762198/Documents/quickstart/src/app/hero.ts",
+		"/C/Users/a762198/Documents/quickstart/src/app/mock-heroes.ts",
+		"/C/Users/a762198/Documents/quickstart/src/app/mock-heros.ts",
+		"/C/Users/a762198/AppData/Roaming/Sublime Text 3/Packages/User/AngularJS-sublime-package.sublime-settings",
+		"/C/Users/a762198/AppData/Roaming/Sublime Text 3/Packages/AngularJS/AngularJS-sublime-package.sublime-settings",
+		"/C/Users/a762198/Documents/quickstart/src/app/hero.js",
+		"/C/Users/a762198/Documents/quickstart/node_modules/selenium-webdriver/lib/test/data/js/jquery-1.4.4.min.js",
+		"/C/Users/a762198/Documents/quickstart/src/app/app.module.js",
+		"/C/Users/a762198/Documents/quickstart/src/main.ts",
+		"/C/Users/a762198/Documents/angular-phonecat/app/app.js",
+		"/C/Users/a762198/Documents/angular-phonecat/app/index.html",
+		"/C/Users/a762198/Desktop/scripts/JsonpTest.html",
+		"/C/Users/a762198/Desktop/scripts/EDIParser.py",
+		"/C/Users/a762198/Desktop/scripts/FindString/findstring_multithreaded.py",
+		"/C/Users/a762198/Desktop/scripts/FindString/findstring.py",
+		"/C/Users/a762198/Desktop/scripts/LeadsDigUsul/LeadsDigApp.py",
+		"/C/Users/a762198/Desktop/scripts/FindString/stats.txt",
+		"/C/Users/a762198/Desktop/scripts/FindString/test.txt",
+		"/C/Users/a762198/Desktop/scripts/FindString/MyThreadPool.py",
+		"/C/Users/a762198/Desktop/scripts/LeadsDigUsul/LogHelper.py",
+		"/C/Users/a762198/Desktop/scripts/LeadsDigUsul/DALHelper.py",
+		"/C/Users/a762198/Downloads/LeadsDigUsul.zip",
+		"/C/Users/a762198/Desktop/scripts/examplePi.c",
+		"/C/Users/a762198/Desktop/scripts/server.py",
+		"/C/Users/a762198/Desktop/scripts/client.py",
+		"/C/Users/a762198/Desktop/BulkCodingChargingFix/BulkCodingChargingActivityDesigner.xaml.cs",
+		"/C/Users/a762198/Desktop/BulkCodingChargingFix/BulkCodingChargingActivityDesigner.xaml",
+		"/C/Users/a762198/Desktop/BulkCodingChargingFix/BulkCodeFinancialData.cs",
+		"/C/Users/a762198/Desktop/scripts/FindString/testExceptionDecorator.py",
+		"/C/Users/a762198/Desktop/scripts/search_files.py",
+		"/C/Users/a762198/Desktop/scripts/findstring.py",
+		"/C/Users/a762198/Desktop/Grooming_12_7_16.txt",
+		"/C/Users/a762198/Documents/euler/26_CircularNumber.py",
+		"/C/Users/a762198/Documents/euler/25_1000FiboNumber.py",
+		"/C/Users/a762198/Documents/euler/24_LexographicPermutations.py",
+		"/C/Users/a762198/Documents/euler/allPermutations.py",
+		"/C/Users/a762198/Documents/euler/22_NameScores.py",
+		"/C/Users/a762198/Documents/euler/22_NamesX.txt",
+		"/C/Users/a762198/Documents/euler/22_Names.txt",
+		"/C/Users/a762198/Desktop/22_Names",
+		"/C/Users/a762198/Desktop/22_NameScores.py",
+		"/C/Users/a762198/Desktop/3_3_6_Kickoff.txt",
+		"/C/Users/a762198/Documents/euler/21_AmicableNumbers.py",
+		"/C/Users/a762198/Documents/euler/20_FactorialDigitSum.py",
+		"/C/Users/a762198/Documents/euler/19_CountingSundays.py",
+		"/C/Users/a762198/Documents/euler/18_MaximumPathSum1.py",
+		"/C/Users/a762198/Documents/euler/18_MaximumPathSum1DP.py",
+		"/C/Users/a762198/Documents/euler/18_SmallTriangle",
+		"/C/Users/a762198/Documents/euler/18_BigTriangle",
+		"/C/Users/a762198/Documents/euler/67_VeryBigTriangle",
+		"/C/Users/a762198/Documents/euler/17_NumbersAsWordsCount.py",
+		"/C/Users/a762198/Documents/euler/16_PowerDigitSum.py",
+		"/C/Users/a762198/Documents/euler/15_LatticePaths.py",
+		"/C/Users/a762198/Documents/euler/15_LatticePathsDP.py",
+		"/C/Users/a762198/Documents/euler/14_Collatz.py",
+		"/C/Users/a762198/Documents/euler/12_TriangleNumberDivisors.py",
+		"/C/Users/a762198/Documents/euler/13_number",
+		"/C/Users/a762198/Documents/euler/13_LargeSum.py",
+		"/C/Users/a762198/Documents/euler/FindPrimeFactorization.py",
+		"/C/Users/a762198/Documents/euler/SievePrimeFinder.py",
+		"/C/Users/a762198/Documents/euler/11_grid",
+		"/C/Users/a762198/Documents/euler/11_testGrid",
+		"/C/Users/a762198/Documents/euler/11_LargestProdcutInGrid.py",
+		"/C/Users/a762198/Documents/euler/10_SumOfPrimes.py",
+		"/C/Users/a762198/Documents/euler/9_LargestPythegoranTriplet.py",
+		"/C/Users/a762198/Documents/euler/8_LargestProductInSeries.py",
+		"/C/Users/a762198/Documents/euler/7_10001Prime.py",
+		"/C/Users/a762198/Documents/euler/5_SumSquareDifference.py",
+		"/C/Users/a762198/Documents/euler/5_SmallestEvenlyDivisible.py",
+		"/C/Users/a762198/Documents/euler/3_LargestPrimeFactor.py",
+		"/C/Users/a762198/Documents/euler/4_LargestPalindromicNumber.py",
+		"/C/Users/a762198/Documents/euler/2_EvenFiboSum.py",
+		"/C/Users/a762198/Documents/euler/EvenFiboSum_2.py",
+		"/C/Users/a762198/Documents/euler/AllMultiples.py",
+		"/C/Users/a762198/Documents/euler/test.py"
+	],
+	"find":
+	{
+		"height": 50.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"html",
+			"ng",
+			"lock"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 31.0
+	},
+	"input":
+	{
+		"height": 43.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.doc":
+	{
+		"height": 0.0
+	},
+	"output.exec":
+	{
+		"height": 226.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "Packages/Python/Python.sublime-build",
+	"project": "QuickstarProject.sublime-project",
+	"replace":
+	{
+		"height": 58.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 382.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
