@@ -59,4 +59,4 @@ In the ClientApp folder type: `npm start`
 
 Open the browser and type: `localhost:3000`. This should bring you to the main page of the application. 
 
-** *Note: ** make sure the backend is configured and running before the client 
+__*Note__: make sure the backend is configured and running before the client 
