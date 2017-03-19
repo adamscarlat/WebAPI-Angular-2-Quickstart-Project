@@ -1,2 +1,2 @@
 # ASP.NET-Core-and-Angular-2-Quickstart-Project
-A quickstart project that has an Angular 2 client app and an ASP.NET Core web API backend
+This project is based on the Angular 2 tutorial project Tour of Heroes (https://angular.io/docs/ts/latest/tutorial/). In addition to the client app supplied by the tutorial I added an ASP.NET Core Web API backend to handle the application data. 
