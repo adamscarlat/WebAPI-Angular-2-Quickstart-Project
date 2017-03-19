@@ -1,2 +1,4 @@
 # ASP.NET-Core-and-Angular-2-Quickstart-Project
-This project is based on the Angular 2 tutorial project Tour of Heroes (https://angular.io/docs/ts/latest/tutorial/). In addition to the client app supplied by the tutorial I added an ASP.NET Core Web API backend to handle the application data. 
+This project is based on the Angular 2 tutorial project- Tour of Heroes (https://angular.io/docs/ts/latest/tutorial/). In addition to the client app supplied by the tutorial I added an ASP.NET Core Web API backend to handle the application data and configured the two to work together. The backend uses a sqlite database (by default) behind the Entity Framework ORM. 
+
+This project can be used as the starting point of an Angular 2 - ASP.NET Core web application. In order to run the project, clone the repository, complete the prerequisites, configure the backend, configure the client app and start developing. If there are any confusions along the way I will be happy to assist. Shoot me a quick message and I will try to answer as soon as possible.  
