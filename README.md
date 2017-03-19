@@ -6,6 +6,11 @@ This project can be used as the starting point of an Angular 2 - ASP.NET Core we
 ## Prerequisites
 
 ### Editor
-I recommend using VS Code for this project 
+I recommend using VS Code for this project. Find it here: https://code.visualstudio.com/
 
+### .NET Core SDK
+Install the .NET Core SDK. Find it here: https://www.microsoft.com/net/core
+
+### Node JS
+Install Node. Find it here: https://nodejs.org/en/
 
