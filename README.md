@@ -23,21 +23,22 @@ configuring the Web API will require two steps: restoring the necessary dependen
 
 -**Entity Framework**: will serve as the ORM of the web api
 
+
 __Restore the packages__
 
 Open the terminal, cd into the folder HeroAPI and type: `dotnet restore`
 
-Migrate the initial database:
+__Migrate the initial database__
 
 In the HeroAPI folder type: `dotnet ef database update`
 
 This will create the sqlite database in the folder `HeroAPI/bin/Debug/HeroAPIDb.db`
 
-Start the web API web server:
+__Start the web API web server__
 
 In the HeroAPI directory type: `dotnet watch run`
 
-Test the server:
+__Test the server__
 
 Open your browser and put the address: `localhost:5000/api/heroes`
 you should see an empty list returned to you.
