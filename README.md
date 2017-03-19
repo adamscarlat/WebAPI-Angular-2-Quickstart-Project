@@ -23,6 +23,7 @@ configuring the Web API will require two steps: restoring the necessary dependen
 
 -**Entity Framework**: will serve as the ORM of the web api
 
+---
 
 __Restore the packages__
 
