@@ -23,3 +23,11 @@ configuring the Web API will require two steps: restoring the necessary dependen
 
 -**Entity Framework**: will serve as the ORM of the web api
 
+To restore the packages:
+
+open the terminal, cd into the folder HeroAPI and type: `dotnet restore`
+
+To start the web API web server:
+
+in the HeroAPI directory type: `dotnet watch run`
+
