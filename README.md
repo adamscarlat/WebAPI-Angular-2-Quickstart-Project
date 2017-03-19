@@ -14,3 +14,10 @@ Install the .NET Core SDK. Find it here: https://www.microsoft.com/net/core
 ### Node JS
 Install Node. Find it here: https://nodejs.org/en/
 
+
+## Configure Web API
+
+configuring the Web API will require two steps: restoring the necessary dependencies and using the initial migration to set up the database. In addition to the default dependencies of a web api project I added the following:
+-*dotnet watch*: this add-on will track any changes done to the code and recompile the backend solution automatically. It allows smoother development since there is no need to restart the web server for every change done to the code. For more information on dotnet watch: https://docs.microsoft.com/en-us/aspnet/core/tutorials/dotnet-watch
+-*Entity Framework*: will serve as the ORM of the web api
+
