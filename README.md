@@ -45,3 +45,18 @@ Open your browser and put the address: `localhost:5000/api/heroes`
 you should see an empty list returned to you.
 
 
+## Configure the Client App
+
+To configure the client app we have to install of all the dependencies in the package.json file. After that we start the client server.
+
+__Restore the packages__
+
+In the terminal, cd into the ClientApp folder and type: `npm install`
+
+__Start the client__
+
+In the ClientApp folder type: `npm start`
+
+Open the browser and type: `localhost:3000`. This should bring you to the main page of the application. 
+
+** *Note: ** make sure the backend is configured and running before the client 
