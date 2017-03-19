@@ -15,7 +15,7 @@ Install the .NET Core SDK. Find it here: https://www.microsoft.com/net/core
 Install Node. Find it here: https://nodejs.org/en/
 
 
-## Configure Web API
+## Configure the Web API
 
 configuring the Web API will require two steps: restoring the necessary dependencies and using the initial migration to set up the database. In addition to the default dependencies of a web api project I added the following:
 
