@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using HeroAPI.Data;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace HeroAPI
 {
@@ -28,6 +29,10 @@ namespace HeroAPI
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
             //Support for CORS requests
             services.AddCors(options => {
                 options.AddPolicy("CorsPolicy",

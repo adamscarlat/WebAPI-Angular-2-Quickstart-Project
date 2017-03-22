@@ -1,8 +1,9 @@
-  using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
   
   namespace HeroAPI.Data
   {
-    public class ApplicationDbContext :DbContext
+    public class ApplicationDbContext :IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         :base(options)
