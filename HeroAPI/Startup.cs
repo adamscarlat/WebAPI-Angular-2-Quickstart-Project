@@ -7,13 +7,20 @@ using Microsoft.EntityFrameworkCore;
 using HeroAPI.Data;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using HeroAPI.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System;
+
+using Microsoft.Extensions.Options;
+using HeroAPI.Middleware.TokenMiddleware;
 
 namespace HeroAPI
 {
     public class Startup
     {
         private readonly string _clientOrigin = "http://localhost:3000";
-
+        
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -62,8 +69,53 @@ namespace HeroAPI
 
             // // global policy - assign here or on each controller
             // app.UseCors("CorsPolicy");
+            
+            var secretKey = "ClownsScareMeWES";
+            var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey));
+            app.UseJwtBearerAuthentication(new JwtBearerOptions
+                {
+                    AutomaticAuthenticate = true,
+                    AutomaticChallenge = true,
+                    TokenValidationParameters = GetTokenValidationParameters(signingKey)
+                }
+            );
 
+            var options = new Middleware.TokenMiddleware.TokenProviderOptions
+            {
+                Audience = "ExampleAudience",
+                Issuer = "ExampleIssuer",
+                SigningCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256),
+            };
+
+            app.UseMiddleware<TokenProviderMiddleware>(Options.Create(options));
+            
             app.UseMvc();
+        }
+
+        private TokenValidationParameters GetTokenValidationParameters(SymmetricSecurityKey signingKey)
+        {
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                // The signing key must match!
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = signingKey,
+            
+                // Validate the JWT Issuer (iss) claim
+                ValidateIssuer = true,
+                ValidIssuer = "ExampleIssuer",
+            
+                // Validate the JWT Audience (aud) claim
+                ValidateAudience = true,
+                ValidAudience = "ExampleAudience",
+            
+                // Validate the token expiry
+                ValidateLifetime = true,
+            
+                // If you want to allow a certain amount of clock drift, set that here:
+                ClockSkew = TimeSpan.Zero
+            };
+
+            return tokenValidationParameters;
         }
     }
 }
