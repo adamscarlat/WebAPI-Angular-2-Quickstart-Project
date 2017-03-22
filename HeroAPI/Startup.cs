@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using HeroAPI.Data;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using HeroAPI.Services;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System;
@@ -70,6 +69,7 @@ namespace HeroAPI
             // // global policy - assign here or on each controller
             // app.UseCors("CorsPolicy");
             
+            //Code taken from: https://stormpath.com/blog/token-authentication-asp-net-core
             var secretKey = "ClownsScareMeWES";
             var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey));
             app.UseJwtBearerAuthentication(new JwtBearerOptions
@@ -94,6 +94,7 @@ namespace HeroAPI
 
         private TokenValidationParameters GetTokenValidationParameters(SymmetricSecurityKey signingKey)
         {
+            //Code taken from: https://stormpath.com/blog/token-authentication-asp-net-core
             var tokenValidationParameters = new TokenValidationParameters
             {
                 // The signing key must match!

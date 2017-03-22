@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
+//Code taken from: https://stormpath.com/blog/token-authentication-asp-net-core
 namespace HeroAPI.Middleware.TokenMiddleware
 {
     public class TokenProviderMiddleware

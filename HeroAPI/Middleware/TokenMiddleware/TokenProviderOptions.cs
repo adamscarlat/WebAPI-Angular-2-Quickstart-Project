@@ -1,6 +1,7 @@
 using System;
 using Microsoft.IdentityModel.Tokens;
 
+//Code taken from: https://stormpath.com/blog/token-authentication-asp-net-core
 namespace HeroAPI.Middleware.TokenMiddleware
 {
     public class TokenProviderOptions
