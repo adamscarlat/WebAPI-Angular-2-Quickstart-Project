@@ -11,6 +11,8 @@ namespace HeroAPI
 {
     public class Startup
     {
+        private readonly string _clientOrigin = "http://localhost:3000";
+
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -36,7 +38,7 @@ namespace HeroAPI
             //Support for CORS requests
             services.AddCors(options => {
                 options.AddPolicy("CorsPolicy",
-                builder => builder.AllowAnyOrigin()
+                builder => builder.WithOrigins(_clientOrigin)
                 .AllowAnyMethod()
                 .AllowAnyHeader()
                 .AllowCredentials());       
