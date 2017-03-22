@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using HeroAPI.Data;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using HeroAPI.Services;
 
 namespace HeroAPI
 {
@@ -28,9 +29,14 @@ namespace HeroAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //DI to hero repository
+            services.AddScoped<IHeroData, SqliteHeroData>();
+
+            //configure sqlite as default db
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             
+            //configure Identity Framework
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();

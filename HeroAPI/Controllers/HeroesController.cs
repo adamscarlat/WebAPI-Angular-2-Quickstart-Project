@@ -1,29 +1,28 @@
 
 using System.Collections.Generic;
-using System.Linq;
-using HeroAPI.Data;
+using HeroAPI.Services;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HeroAPI.Controllers
- {
+{
 
     [Route("api/[controller]")]
     [EnableCors("CorsPolicy")]
     public class HeroesController : Controller
     {
-        private ApplicationDbContext _dbContext;
+        private IHeroData _heroData;
 
-        public HeroesController(ApplicationDbContext dbContext)
+        public HeroesController(IHeroData heroData)
         {
-            _dbContext = dbContext;
+            _heroData = heroData;
         }
 
         // GET api/heroes
         [HttpGet]
         public IEnumerable<Hero> Get()
         {
-            var heroList = _dbContext.Set<Hero>().ToList();
+            var heroList = _heroData.GetAllHeroes();
             
             return heroList;
         }
@@ -32,7 +31,7 @@ namespace HeroAPI.Controllers
         [HttpGet("{id}")]
         public Hero Get(int id)
         {
-            var hero = _dbContext.Hero.FirstOrDefault(h => h.HeroId == id);
+            var hero = _heroData.GetHero(id);
             return hero;
         }
 
@@ -43,9 +42,8 @@ namespace HeroAPI.Controllers
             var hero = new Hero();
             hero.HeroName = value.HeroName;
 
-            var addedHero = _dbContext.Hero.Add(hero).Entity;
+            var addedHero = _heroData.AddHero(hero);
 
-            _dbContext.SaveChanges();
             return addedHero;
         }
 
@@ -53,24 +51,21 @@ namespace HeroAPI.Controllers
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]HeroViewModel value)
         {
-            var hero = _dbContext.Hero.FirstOrDefault(p => p.HeroId == id);
-            
+            //var hero = _dbContext.Hero.FirstOrDefault(p => p.HeroId == id);
+            var hero = _heroData.GetHero(id);
+
             if (hero == null)
                 return;
             
             hero.HeroName = value.HeroName;
-            _dbContext.SaveChanges();
-            
+            _heroData.Commit();
         }
 
         // DELETE api/heroes/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            var hero = _dbContext.Hero.FirstOrDefault(p => p.HeroId == id);
-            _dbContext.Hero.Remove(hero);
-
-            _dbContext.SaveChanges();
+           _heroData.DeleteHero(id);
         }
     }
  }
