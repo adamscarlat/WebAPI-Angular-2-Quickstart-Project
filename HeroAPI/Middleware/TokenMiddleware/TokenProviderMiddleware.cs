@@ -76,7 +76,7 @@ namespace HeroAPI.Middleware.TokenMiddleware
                 issuer: _options.Issuer,
                 audience: _options.Audience,
                 claims: claims,
-                notBefore: now.DateTime,
+                //notBefore: now.DateTime,
                 expires: now.DateTime.Add(_options.Expiration),
                 signingCredentials: _options.SigningCredentials);
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);

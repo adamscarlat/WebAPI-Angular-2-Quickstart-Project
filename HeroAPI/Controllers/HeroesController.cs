@@ -1,6 +1,7 @@
 
 using System.Collections.Generic;
 using HeroAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,6 +21,7 @@ namespace HeroAPI.Controllers
 
         // GET api/heroes
         [HttpGet]
+        [Authorize]
         public IEnumerable<Hero> Get()
         {
             var heroList = _heroData.GetAllHeroes();
@@ -37,6 +39,7 @@ namespace HeroAPI.Controllers
 
         // POST api/heroes
         [HttpPost]
+        [Authorize]
         public Hero Post([FromBody]HeroViewModel value)
         {
             var hero = new Hero();
