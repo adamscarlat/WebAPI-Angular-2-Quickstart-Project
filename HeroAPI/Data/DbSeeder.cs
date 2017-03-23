@@ -49,7 +49,9 @@ namespace HeroAPI.Data
         public static ApplicationUser user = new ApplicationUser
         {
             Email = "testUser@testDomain.com",
+            NormalizedEmail = "TESTUSER@TESTDOMAIN.COM",
             UserName = "testUser",
+            NormalizedUserName = "TESTUSER",
             PhoneNumber = "+99910029211",
             EmailConfirmed = true,
             PhoneNumberConfirmed = true,

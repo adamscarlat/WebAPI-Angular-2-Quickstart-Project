@@ -108,32 +108,38 @@ namespace HeroAPI.Middleware.TokenMiddleware
             await context.Response.WriteAsync(JsonConvert.SerializeObject(response, new JsonSerializerSettings { Formatting = Formatting.Indented }));
         }
 
-        private Task<ClaimsIdentity> GetIdentity(string username, string password)
-        {
-            // DON'T do this in production, obviously!
-            if (username == "TEST" && password == "TEST123")
-            {
-                return Task.FromResult(new ClaimsIdentity(new System.Security.Principal.GenericIdentity(username, "Token"), new Claim[] { }));
-            }
-
-            // Credentials are invalid, or account doesn't exist
-            return Task.FromResult<ClaimsIdentity>(null);
-        }
-
-        // public async Task<ClaimsIdentity> GetIdentity(string email, string password)
+        // private Task<ClaimsIdentity> GetIdentity(string username, string password)
         // {
-        //     var result = await _signInManager.PasswordSignInAsync(email, password, false, lockoutOnFailure: false);
-        //     if (result.Succeeded)
+        //     // DON'T do this in production, obviously!
+        //     if (username == "TEST" && password == "TEST123")
         //     {
-        //         var user = await _userManager.FindByEmailAsync(email);
-        //         var claims = await _userManager.GetClaimsAsync(user);
-
-        //         return new ClaimsIdentity(new GenericIdentity(email, "Token"), claims);
+        //         return Task.FromResult(new ClaimsIdentity(new System.Security.Principal.GenericIdentity(username, "Token"), new Claim[] { }));
         //     }
 
         //     // Credentials are invalid, or account doesn't exist
-        //     return null;
+        //     return Task.FromResult<ClaimsIdentity>(null);
         // }
+
+        public async Task<ClaimsIdentity> GetIdentity(string username, string password)
+        {
+            var user = await _userManager.FindByNameAsync(username);
+            if (user == null)
+                return null;
+
+            var isValidLogin= await _userManager.CheckPasswordAsync(user, password);
+            // Console.WriteLine("uname: {0} , password: {1}", username, password);
+            // Console.WriteLine("login result: " + isValidLogin);
+            if (isValidLogin)
+            {
+                //var user = await _userManager.FindByNameAsync(username);
+                var claims = await _userManager.GetClaimsAsync(user);
+
+                return new ClaimsIdentity(new GenericIdentity(username, "Token"), claims);
+            }
+
+            // Credentials are invalid, or account doesn't exist
+            return null;
+        }
 
     }
 }
