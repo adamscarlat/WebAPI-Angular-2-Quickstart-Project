@@ -28,11 +28,14 @@ namespace HeroAPI.Middleware.TokenMiddleware
             _userManager = userManager;
         }
 
-        /*
-        When this class is used as middleware in the asp.net pipeline this method
-        will get called. If the request is POST and has form content type it will 
-        forward the request to token generation
-        */
+
+        /// <summary>
+        /// When this class is used as middleware in the asp.net pipeline this method
+        /// will get called. If the request is POST and has form content type it will 
+        /// forward the request to token generation
+        /// </summary>
+        /// <param name="context">Http context</param>
+        /// <returns>A task that represents the completion of the operation</returns>
         public Task Invoke(HttpContext context)
         {
             // If the request path doesn't match, skip
@@ -52,9 +55,13 @@ namespace HeroAPI.Middleware.TokenMiddleware
             return GenerateToken(context);
         }
 
-        /*
-        If username and password were authenticated generate the token
-        */
+
+        /// <summary>
+        ///  Checks if username and password were authenticated and generates the token.
+        /// If not return a 400 response
+        /// </summary>
+        /// <param name="context">Http context</param>
+        /// <returns>A task that represents the completion of the operation</returns>
         private async Task GenerateToken(HttpContext context)
         {
             var username = context.Request.Form["username"];

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace HeroAPI.Services
 {
-    /*
-        Repository pattern for the DB
-     */
+     /// <summary>
+     /// Repository for the DB
+     /// </summary>
     public interface IHeroData
     {
         IEnumerable<Hero> GetAllHeroes();

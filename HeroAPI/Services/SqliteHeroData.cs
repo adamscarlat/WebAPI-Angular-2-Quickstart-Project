@@ -4,9 +4,9 @@ using HeroAPI.Data;
 
 namespace HeroAPI.Services
 {
-    /*
-        Implementation for sqlite hero repository
-     */
+     /// <summary>
+     /// Implementation for sqlite hero repository
+     /// </summary>
     public class SqliteHeroData : IHeroData
     {
         private ApplicationDbContext _dbContext;

@@ -33,7 +33,10 @@ namespace HeroAPI
 
         public IConfigurationRoot Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to add services to the container.
+        /// </summary>
+        /// <param name="services">built-in services, defined in .csproj file</param>
         public void ConfigureServices(IServiceCollection services)
         {
             //DI to hero repository
@@ -61,7 +64,12 @@ namespace HeroAPI
             services.AddMvc();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="env"></param>
+        /// <param name="loggerFactory"></param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
@@ -77,9 +85,11 @@ namespace HeroAPI
             DbSeeder.SeedDbWithSampleUsers(app.ApplicationServices);
         }
 
-        /*
-        Configure JWT token and add TokenProviderMiddleware to pipeline
-        */
+
+        /// <summary>
+        /// Configure JWT token and add TokenProviderMiddleware to pipeline
+        /// </summary>
+        /// <param name="app"></param>
         private void ConfigureToken(IApplicationBuilder app)
         {
             //Code taken from: https://stormpath.com/blog/token-authentication-asp-net-core
@@ -104,10 +114,15 @@ namespace HeroAPI
         }
 
         /*
-        With this middleware added to your application pipeline, 
-        any routes protected with [Authorize] will require a JWT that 
-        passes the following validation requirements
+
         */
+        /// <summary>
+        ///  With this middleware added to your application pipeline, 
+        ///  any routes protected with [Authorize] will require a JWT that 
+        ///  passes the following validation requirements
+        /// </summary>
+        /// <param name="signingKey">secret key ASCII encoded</param>
+        /// <returns>object containing token validation parameters</returns>
         private TokenValidationParameters GetTokenValidationParameters(SymmetricSecurityKey signingKey)
         {
             //Code taken from: https://stormpath.com/blog/token-authentication-asp-net-core

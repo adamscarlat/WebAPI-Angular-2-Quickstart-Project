@@ -4,9 +4,11 @@ using Microsoft.IdentityModel.Tokens;
 //Code taken from: https://stormpath.com/blog/token-authentication-asp-net-core
 namespace HeroAPI.Middleware.TokenMiddleware
 {
-    /*
-    These options are assined in Startup.cs 
-    */
+
+    /// <summary>
+    /// Options container for the JWT token. 
+    /// These options are assined in Startup.cs 
+    /// </summary>
     public class TokenProviderOptions
     {
         //path to obtain a token
