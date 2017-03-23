@@ -19,15 +19,15 @@ Install Node. Find it here: https://nodejs.org/en/
 
 configuring the Web API will require two steps: restoring the necessary dependencies and using the initial migration to set up the database. In addition to the default dependencies of a web api project I added the following:
 
--**dotnet watch**: this add-on will track any changes done to the code and recompile the backend solution automatically. It allows smoother development since there is no need to restart the web server for every change done to the code. For more information on dotnet watch: https://docs.microsoft.com/en-us/aspnet/core/tutorials/dotnet-watch
+**dotnet watch**: this add-on will track any changes done to the code and recompile the backend solution automatically. It allows smoother development since there is no need to restart the web server for every change done to the code. For more information on dotnet watch: https://docs.microsoft.com/en-us/aspnet/core/tutorials/dotnet-watch
 
--**Entity Framework**: will serve as the ORM of the web api
+**Entity Framework**: will serve as the ORM of the web api
 
--**CORS (Cross Origin Resource Sharing)**: the API accepts requests that originated at the client domain (see Startup.cs, clientOrigin). The API will add to the preflight response an Access-Control-Allow-Origin so that it can communicate with the client.  
+**CORS (Cross Origin Resource Sharing)**: the API accepts requests that originated at the client domain (see Startup.cs, clientOrigin). The API will add to the preflight response an Access-Control-Allow-Origin so that it can communicate with the client.  
 
--**Identity Framework**: added the Identity Framework for user registration. For more information: https://docs.microsoft.com/en-us/aspnet/identity/
+**Identity Framework**: added the Identity Framework for user registration. For more information: https://docs.microsoft.com/en-us/aspnet/identity/
 
--**JWT Token Authentication**: the API generates a JWT token for registered users. This token will be used by the client in every request that needs authentiaction. The implementation of the JWT token is taken from Stormpath: https://stormpath.com/blog/token-authentication-asp-net-core
+**JWT Token Authentication**: the API generates a JWT token for registered users. This token will be used by the client in every request that needs authentiaction. The implementation of the JWT token is taken from Stormpath: https://stormpath.com/blog/token-authentication-asp-net-core
 
 ---
 
@@ -48,7 +48,7 @@ In the HeroAPI directory type: `dotnet watch run`
 __Test the server__
 
 Open your browser and put the address: `localhost:5000/api/heroes`
-you should see an empty list returned to you.
+you should see an empty list returned to you. Note: if the [Authorize] attribute is decorating a controller or an action then without a token it will return a 401 unauthorized response. See the Get JWT Token for more information.  
 
 
 ## Configure the Client App
