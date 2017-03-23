@@ -73,6 +73,8 @@ namespace HeroAPI
             ConfigureToken(app);
             
             app.UseMvc();
+
+            DbSeeder.SeedDbWithSampleUsers(app.ApplicationServices);
         }
 
         /*
