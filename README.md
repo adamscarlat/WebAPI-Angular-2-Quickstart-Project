@@ -23,6 +23,12 @@ configuring the Web API will require two steps: restoring the necessary dependen
 
 -**Entity Framework**: will serve as the ORM of the web api
 
+-**CORS (Cross Origin Resource Sharing)**: the API accepts requests that originated at the client domain (see Startup.cs, clientOrigin). The API will add to the preflight response an Access-Control-Allow-Origin so that it can communicate with the client.  
+
+-**Identity Framework**: added the Identity Framework for user registration. For more information: https://docs.microsoft.com/en-us/aspnet/identity/
+
+-**JWT Token Authentication**: the API generates a JWT token for registered users. This token will be used by the client in every request that needs authentiaction. The implementation of the JWT token is taken from Stormpath: https://stormpath.com/blog/token-authentication-asp-net-core
+
 ---
 
 __Restore the packages__
