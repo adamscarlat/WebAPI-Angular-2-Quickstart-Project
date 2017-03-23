@@ -18,6 +18,7 @@ namespace HeroAPI
 {
     public class Startup
     {
+        //allowed client origin domain for CORS
         private readonly string _clientOrigin = "http://localhost:3000";
         
         public Startup(IHostingEnvironment env)
@@ -69,8 +70,18 @@ namespace HeroAPI
             // // global policy - assign here or on each controller
             // app.UseCors("CorsPolicy");
             
+            ConfigureToken(app);
+            
+            app.UseMvc();
+        }
+
+        /*
+        Configure JWT token and add TokenProviderMiddleware to pipeline
+        */
+        private void ConfigureToken(IApplicationBuilder app)
+        {
             //Code taken from: https://stormpath.com/blog/token-authentication-asp-net-core
-            var secretKey = "ClownsScareMeWES";
+            var secretKey = "Rg3&2e!xIo9yHqp<";
             var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey));
             app.UseJwtBearerAuthentication(new JwtBearerOptions
                 {
@@ -88,10 +99,13 @@ namespace HeroAPI
             };
 
             app.UseMiddleware<TokenProviderMiddleware>(Options.Create(options));
-            
-            app.UseMvc();
         }
 
+        /*
+        With this middleware added to your application pipeline, 
+        any routes protected with [Authorize] will require a JWT that 
+        passes the following validation requirements
+        */
         private TokenValidationParameters GetTokenValidationParameters(SymmetricSecurityKey signingKey)
         {
             //Code taken from: https://stormpath.com/blog/token-authentication-asp-net-core

@@ -31,6 +31,7 @@ namespace HeroAPI.Controllers
 
         // GET api/heroes/5
         [HttpGet("{id}")]
+        [Authorize]
         public Hero Get(int id)
         {
             var hero = _heroData.GetHero(id);
