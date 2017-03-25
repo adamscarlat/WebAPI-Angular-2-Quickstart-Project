@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 using HeroAPI.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -34,6 +33,9 @@ namespace HeroAPI.Controllers
         [Authorize]
         public Hero Get(int id)
         {
+            if (!IsIdValid(id))
+                return null;
+            
             var hero = _heroData.GetHero(id);
             return hero;
         }
@@ -43,7 +45,11 @@ namespace HeroAPI.Controllers
         [Authorize]
         public Hero Post([FromBody]HeroViewModel value)
         {
+            if (!ModelState.IsValid)
+                return null;
+
             var hero = new Hero();
+
             hero.HeroName = value.HeroName;
 
             var addedHero = _heroData.AddHero(hero);
@@ -55,7 +61,12 @@ namespace HeroAPI.Controllers
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]HeroViewModel value)
         {
-            //var hero = _dbContext.Hero.FirstOrDefault(p => p.HeroId == id);
+            if (!IsIdValid(id))
+                return;
+
+            if (!ModelState.IsValid)
+                return;
+            
             var hero = _heroData.GetHero(id);
 
             if (hero == null)
@@ -69,7 +80,19 @@ namespace HeroAPI.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            if (!IsIdValid(id))
+                return;
+
            _heroData.DeleteHero(id);
         }
+
+        private bool IsIdValid(int id)
+        {
+            if (id >= 0 && id < int.MaxValue)
+                return true;
+            
+            return false;
+        }
+
     }
  }

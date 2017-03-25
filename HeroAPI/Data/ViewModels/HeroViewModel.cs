@@ -1,6 +1,7 @@
 
 using Newtonsoft.Json;
 
+[ValidateHero]
 public class HeroViewModel
 {
     [JsonProperty("id")]
