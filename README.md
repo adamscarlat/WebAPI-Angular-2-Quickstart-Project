@@ -27,7 +27,7 @@ configuring the Web API will require two steps: restoring the necessary dependen
 
 **Identity Framework**: added the Identity Framework for user registration. For more information: https://docs.microsoft.com/en-us/aspnet/identity/
 
-**JWT Token Authentication**: the API generates a JWT token for registered users. This token will be used by the client in every request that needs authentiaction. The implementation of the JWT token is taken from Stormpath: https://stormpath.com/blog/token-authentication-asp-net-core. For more information on JWT in the HeroAPI see the [Using the JWT](#using-the-jwt) section.
+**JWT Token Authentication**: the API generates a JWT token for registered users. This token will be used by the client in every request that needs authentiaction. The implementation of the JWT token is taken from Stormpath: https://stormpath.com/blog/token-authentication-asp-net-core.
 
 ---
 
@@ -48,8 +48,9 @@ In the HeroAPI directory type: `dotnet watch run`
 __Test the server__
 
 Open your browser and put the address: `localhost:5000/api/heroes`
-you should see an empty list returned to you. Note: if the [Authorize] attribute is decorating a controller or an action then without a token it will return a 401 unauthorized response. See the Get JWT Token for more information.  
+you should see an empty list returned to you. Note: if the [Authorize] attribute is decorating a controller or an action then without a token it will return a 401 unauthorized response. For more information on JWT in the HeroAPI see the [Using the JWT](#using-the-jwt) section.  
 
+---
 
 ## Configure the Client App
 
@@ -67,5 +68,12 @@ Open the browser and type: `localhost:3000`. This should bring you to the main p
 
 __*Note__: make sure the backend is configured and running before the client 
 
+---
 
 ## Using the JWT
+
+The HeroAPI is using JWT for authentication. Any controller method that is decorated with the `[Authorize]` attribute requires a valid token in the http request. To obtain a token, a user would have to supply a valid username and password using the /token api. Since registering a user would normally require a UI, I created a database seed class which populates a single user in the database (see DbSeeder.cs). We can this user username and password to test the API.
+
+# Generating a new token
+
+
