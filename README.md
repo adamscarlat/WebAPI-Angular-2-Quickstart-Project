@@ -27,7 +27,7 @@ configuring the Web API will require two steps: restoring the necessary dependen
 
 **Identity Framework**: added the Identity Framework for user registration. For more information: https://docs.microsoft.com/en-us/aspnet/identity/
 
-**JWT Token Authentication**: the API generates a JWT token for registered users. This token will be used by the client in every request that needs authentiaction. The implementation of the JWT token is taken from Stormpath: https://stormpath.com/blog/token-authentication-asp-net-core. For more information on JWT in the HeroAPI see the [create an anchor](#Using the JWT) section.
+**JWT Token Authentication**: the API generates a JWT token for registered users. This token will be used by the client in every request that needs authentiaction. The implementation of the JWT token is taken from Stormpath: https://stormpath.com/blog/token-authentication-asp-net-core. For more information on JWT in the HeroAPI see the [create an anchor](#Using-the-JWT) section.
 
 ---
 
