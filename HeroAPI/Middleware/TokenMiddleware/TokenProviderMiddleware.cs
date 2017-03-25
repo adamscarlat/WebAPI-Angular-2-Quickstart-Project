@@ -131,9 +131,7 @@ namespace HeroAPI.Middleware.TokenMiddleware
             // Console.WriteLine("login result: " + isValidLogin);
             if (isValidLogin)
             {
-                //var user = await _userManager.FindByNameAsync(username);
                 var claims = await _userManager.GetClaimsAsync(user);
-
                 return new ClaimsIdentity(new GenericIdentity(username, "Token"), claims);
             }
 
