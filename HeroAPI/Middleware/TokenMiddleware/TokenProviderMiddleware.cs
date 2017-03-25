@@ -122,6 +122,9 @@ namespace HeroAPI.Middleware.TokenMiddleware
 
         public async Task<ClaimsIdentity> GetIdentity(string username, string password)
         {
+            if (username == null || password == null)
+                return null;
+
             var user = await _userManager.FindByNameAsync(username);
             if (user == null)
                 return null;
