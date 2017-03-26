@@ -84,7 +84,6 @@ The auth token obtained in the previous step will have to be used in every http 
 GET /api/heroes
 Content-Type: application/x-www-form-urlencoded
 Authorization: Bearer [put the token here]
-
 ```
 If all is set up correctly you should see a 200 response.
 
