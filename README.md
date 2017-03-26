@@ -47,8 +47,7 @@ In the HeroAPI directory type: `dotnet watch run`
 
 __Test the server__
 
-Open your browser and put the address: `localhost:5000/api/heroes`
-you should see an empty list returned to you. Note: if the `[Authorize]` attribute is decorating a controller or an action then without a token it will return a 401 unauthorized response. For more information on JWT in the HeroAPI see the [Using the JWT](#using-the-jwt) section.  
+When the `[Authorize]` attribute is decorating a controller or an action then without a token it will return a 401 unauthorized response. To test the server we must first obtain an auth token. For more information on JWT in the HeroAPI see the [Using the JWT](#using-the-jwt) section.  
 
 
 ## Using the JWT
@@ -81,13 +80,13 @@ If all is set up correctly, you should get an authentication token in the http r
 
 The auth token obtained in the previous step will have to be used in every http request for any controller actions that are decorated with the `[Authorize]` attribute. To use the token, create the following http request:
 
-
 ```
 GET /api/heroes
 Content-Type: application/x-www-form-urlencoded
 Authorization: Bearer [put the token here]
 
 ```
+If all is set up correctly you should see a 200 response.
 
 ## Configure the Client App
 
