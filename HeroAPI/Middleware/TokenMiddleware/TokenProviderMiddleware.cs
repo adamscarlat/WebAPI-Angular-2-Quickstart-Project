@@ -96,18 +96,18 @@ namespace HeroAPI.Middleware.TokenMiddleware
                 signingCredentials: _options.SigningCredentials);
                 
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-        
+            
             var response = new
             {
                 access_token = encodedJwt,
                 expires_in = (int)_options.Expiration.TotalSeconds
             };
-        
+            
             // Serialize and return the response
             context.Response.ContentType = "application/json";
             await context.Response.WriteAsync(JsonConvert.SerializeObject(response, new JsonSerializerSettings { Formatting = Formatting.Indented }));
         }
-
+        
         // private Task<ClaimsIdentity> GetIdentity(string username, string password)
         // {
         //     // DON'T do this in production, obviously!
@@ -120,6 +120,12 @@ namespace HeroAPI.Middleware.TokenMiddleware
         //     return Task.FromResult<ClaimsIdentity>(null);
         // }
 
+        /// <summary>
+        /// Authenticate username and password and create a ClaimsIdentity object 
+        /// </summary>
+        /// <param name="username">username string</param>
+        /// <param name="password">password string</param>
+        /// <returns>ClaimsIdentity object for the JWT token</returns>
         public async Task<ClaimsIdentity> GetIdentity(string username, string password)
         {
             if (username == null || password == null)

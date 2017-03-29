@@ -41,6 +41,7 @@ namespace HeroAPI
         {
             //DI to hero repository
             services.AddScoped<IHeroData, SqliteHeroData>();
+            services.AddScoped<IAuthData, SqliteAuthData>();
 
             //configure sqlite as default db
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -95,22 +96,23 @@ namespace HeroAPI
             //Code taken from: https://stormpath.com/blog/token-authentication-asp-net-core
             var secretKey = "Rg3&2e!xIo9yHqp<";
             var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey));
-            app.UseJwtBearerAuthentication(new JwtBearerOptions
+            var jwtBearerOptions = new JwtBearerOptions
                 {
                     AutomaticAuthenticate = true,
                     AutomaticChallenge = true,
                     TokenValidationParameters = GetTokenValidationParameters(signingKey)
-                }
-            );
+                };
+                
+            app.UseJwtBearerAuthentication(jwtBearerOptions);
 
-            var options = new Middleware.TokenMiddleware.TokenProviderOptions
+            var tokenProviderOptions = new Middleware.TokenMiddleware.TokenProviderOptions
             {
                 Audience = "ExampleAudience",
                 Issuer = "ExampleIssuer",
                 SigningCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256),
             };
 
-            app.UseMiddleware<TokenProviderMiddleware>(Options.Create(options));
+            app.UseMiddleware<TokenProviderMiddleware>(Options.Create(tokenProviderOptions));
         }
 
         /*
