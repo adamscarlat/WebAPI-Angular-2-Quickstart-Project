@@ -8,9 +8,10 @@ using HeroAPI.Data;
 namespace HeroAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170330115420_TokenStoreExpirationColAndIndexes")]
+    partial class TokenStoreExpirationColAndIndexes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.2");

@@ -11,5 +11,18 @@ using Microsoft.EntityFrameworkCore;
         }
 
         public DbSet<Hero> Hero { get; set; }
+
+        public DbSet<TokenStore> TokenStore { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+          base.OnModelCreating(builder);
+
+          builder.Entity<TokenStore>()
+            .HasIndex(t => new { t.Token});
+
+          builder.Entity<Hero>()
+            .HasIndex(h => new { h.HeroName });
+        }
     }
   }
