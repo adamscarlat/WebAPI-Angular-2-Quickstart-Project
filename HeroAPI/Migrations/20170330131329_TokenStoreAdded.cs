@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HeroAPI.Migrations
 {
-    public partial class TokenStoreExpirationColAndIndexes : Migration
+    public partial class TokenStoreAdded : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,7 +14,7 @@ namespace HeroAPI.Migrations
                 {
                     id = table.Column<int>(nullable: false)
                         .Annotation("Autoincrement", true),
-                    ExpirationDate = table.Column<DateTime>(nullable: false),
+                    ExpirationTime = table.Column<ulong>(nullable: false),
                     IsValid = table.Column<bool>(nullable: false),
                     Token = table.Column<string>(nullable: false)
                 },
@@ -24,11 +24,6 @@ namespace HeroAPI.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Hero_HeroName",
-                table: "Hero",
-                column: "HeroName");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_TokenStore_Token",
                 table: "TokenStore",
                 column: "Token");
@@ -36,10 +31,6 @@ namespace HeroAPI.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropIndex(
-                name: "IX_Hero_HeroName",
-                table: "Hero");
-
             migrationBuilder.DropTable(
                 name: "TokenStore");
         }

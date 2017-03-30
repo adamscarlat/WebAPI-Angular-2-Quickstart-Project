@@ -17,25 +17,40 @@ namespace HeroAPI.Controllers
         [Route("api/auth/logout")]
         public void Logout()
         {
-            //TODO: get jwt token from request and invalidate it (if it's in the DB)
+            Console.WriteLine("in logout controller...");
 
+            bool isValidAuthHeader;
+            var token = ExtractTokenFromHeader(out isValidAuthHeader);
+
+            Console.WriteLine("Token Extracted: {0}", token);
+
+            if (!isValidAuthHeader)
+                return;
+            
+            _authData.AddToken(token, false);
+
+             Console.WriteLine("logout successful. Token invalidated");
+        }
+
+        private string ExtractTokenFromHeader(out bool isValidAuthHeader)
+        {
+            isValidAuthHeader = true;
             StringValues authHeader = string.Empty;
             HttpContext.Request.Headers.TryGetValue("Authorization", out authHeader);
 
             var authHeaderArray = authHeader.ToString().Split(' ');
-            var authToken = string.Empty;
             if (authHeaderArray.Length > 1)
-                authToken = authHeaderArray[1];
+            {
+                if (authHeaderArray[0].Equals("Bearer"))
+                    return authHeaderArray[1];
+            }
             
-            Console.WriteLine(authToken);
-            var tokenStore = _authData.GetToken(authToken);
+            isValidAuthHeader = false;
 
-            if (tokenStore != null)
-                tokenStore.IsValid = false;
+            Console.WriteLine("Failed to extract token");
 
-            _authData.Commit();
-
-            //Console.WriteLine(tokenStore.IsValid);
+            return string.Empty;
         }
+
     }
 }

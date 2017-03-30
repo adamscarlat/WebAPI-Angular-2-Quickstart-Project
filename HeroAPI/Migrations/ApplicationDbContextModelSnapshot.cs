@@ -191,7 +191,7 @@ namespace HeroAPI.Migrations
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("ExpirationDate");
+                    b.Property<ulong>("ExpirationTime");
 
                     b.Property<bool>("IsValid");
 

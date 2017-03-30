@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -15,5 +14,5 @@ public class TokenStore
     public bool IsValid { get; set; }
 
     [Required]
-    public DateTime ExpirationDate { get; set; }
+    public ulong ExpirationTime { get; set; }
 }

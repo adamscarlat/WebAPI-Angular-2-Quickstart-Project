@@ -8,8 +8,8 @@ using HeroAPI.Data;
 namespace HeroAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170330115420_TokenStoreExpirationColAndIndexes")]
-    partial class TokenStoreExpirationColAndIndexes
+    [Migration("20170330131329_TokenStoreAdded")]
+    partial class TokenStoreAdded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -192,7 +192,7 @@ namespace HeroAPI.Migrations
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("ExpirationDate");
+                    b.Property<ulong>("ExpirationTime");
 
                     b.Property<bool>("IsValid");
 
