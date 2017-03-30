@@ -8,10 +8,12 @@ namespace HeroAPI.Controllers
     public class AuthController : Controller
     {
         private readonly IAuthData _authData;
+        private JWTAuthTokenServices _authServices;
 
-        public AuthController(IAuthData authData)
+        public AuthController(IAuthData authData, JWTAuthTokenServices authServices)
         {
             _authData = authData;
+            _authServices = authServices;
         }
 
         [Route("api/auth/logout")]
@@ -19,38 +21,16 @@ namespace HeroAPI.Controllers
         {
             Console.WriteLine("in logout controller...");
 
-            bool isValidAuthHeader;
-            var token = ExtractTokenFromHeader(out isValidAuthHeader);
+            var token = _authServices.ExtractJWTTokenFromHttpRequest(HttpContext.Request);
 
             Console.WriteLine("Token Extracted: {0}", token);
 
-            if (!isValidAuthHeader)
+            if (string.IsNullOrEmpty(token))
                 return;
             
             _authData.AddToken(token, false);
 
              Console.WriteLine("logout successful. Token invalidated");
         }
-
-        private string ExtractTokenFromHeader(out bool isValidAuthHeader)
-        {
-            isValidAuthHeader = true;
-            StringValues authHeader = string.Empty;
-            HttpContext.Request.Headers.TryGetValue("Authorization", out authHeader);
-
-            var authHeaderArray = authHeader.ToString().Split(' ');
-            if (authHeaderArray.Length > 1)
-            {
-                if (authHeaderArray[0].Equals("Bearer"))
-                    return authHeaderArray[1];
-            }
-            
-            isValidAuthHeader = false;
-
-            Console.WriteLine("Failed to extract token");
-
-            return string.Empty;
-        }
-
     }
 }

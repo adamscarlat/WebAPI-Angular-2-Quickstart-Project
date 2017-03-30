@@ -9,10 +9,12 @@ namespace HeroAPI.Services
     public class SqliteAuthData : IAuthData
     {
         private ApplicationDbContext _dbContext;
+        private JWTAuthTokenServices _tokenServices;
 
-        public SqliteAuthData(ApplicationDbContext dbContext)
+        public SqliteAuthData(ApplicationDbContext dbContext, JWTAuthTokenServices tokenServices)
         {
             _dbContext = dbContext;
+            _tokenServices = tokenServices;
         }
         
         public void AddToken(TokenStore tokenStoreEntity)
@@ -29,10 +31,12 @@ namespace HeroAPI.Services
             var tokenStoreEntity = new TokenStore();
             tokenStoreEntity.Token = token;
             tokenStoreEntity.IsValid = isValidToken;
-            tokenStoreEntity.ExpirationTime = GetTokenExpirationDateTime(token);
+            var tokenExpirationTime = _tokenServices.GetTokenExpirationDateTime(token);
 
-            AddToken(tokenStoreEntity);
-            
+            if (tokenExpirationTime != 0)
+                tokenStoreEntity.ExpirationTime = tokenExpirationTime;
+
+            AddToken(tokenStoreEntity);     
         }
 
         public TokenStore GetToken(string token)
@@ -43,21 +47,6 @@ namespace HeroAPI.Services
         public int Commit()
         {
              return _dbContext.SaveChanges();
-        }
-
-        private ulong GetTokenExpirationDateTime(string token)
-        {
-            var payloadBytes = Convert.FromBase64String(token.Split('.')[1] + "=");
-            var payloadStr = Encoding.UTF8.GetString(payloadBytes, 0, payloadBytes.Length);
-
-            Console.WriteLine("Exp string: {0}", payloadStr);
-
-            // Here, I only extract the "exp" payload property. You can extract other properties if you want.
-            var exp = JsonConvert.DeserializeAnonymousType(payloadStr, new { Exp = 0UL }).Exp;
-            
-            Console.WriteLine("Exp: {0}", exp);
-            
-            return exp;
         }
 
     }

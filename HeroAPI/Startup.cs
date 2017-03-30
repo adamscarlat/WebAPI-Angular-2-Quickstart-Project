@@ -42,6 +42,7 @@ namespace HeroAPI
             //DI to hero repository
             services.AddScoped<IHeroData, SqliteHeroData>();
             services.AddScoped<IAuthData, SqliteAuthData>();
+            services.AddScoped<JWTAuthTokenServices, JWTAuthTokenServices>();
 
             //configure sqlite as default db
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -112,6 +113,7 @@ namespace HeroAPI
                 SigningCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256),
             };
 
+            app.UseMiddleware<TokenBlacklistValidationMiddleware>();
             app.UseMiddleware<TokenProviderMiddleware>(Options.Create(tokenProviderOptions));
         }
 
