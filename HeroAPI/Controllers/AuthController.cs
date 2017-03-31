@@ -1,7 +1,6 @@
 using System;
 using HeroAPI.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Primitives;
 
 namespace HeroAPI.Controllers
 {

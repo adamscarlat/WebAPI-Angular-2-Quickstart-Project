@@ -1,6 +1,4 @@
-using System;
 using Xunit;
-using HeroAPI.Controllers;
 
 namespace HeroAPI.Tests
 {

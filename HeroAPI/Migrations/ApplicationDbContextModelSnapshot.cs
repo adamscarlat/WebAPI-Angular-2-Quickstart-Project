@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using HeroAPI.Data;
 
 namespace HeroAPI.Migrations
@@ -184,25 +183,6 @@ namespace HeroAPI.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("TokenStore", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<ulong>("ExpirationTime");
-
-                    b.Property<bool>("IsValid");
-
-                    b.Property<string>("Token")
-                        .IsRequired();
-
-                    b.HasKey("id");
-
-                    b.HasIndex("Token");
-
-                    b.ToTable("TokenStore");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
