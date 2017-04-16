@@ -9,6 +9,7 @@ namespace HeroAPI.Controllers
 
     [Route("api/[controller]")]
     [EnableCors("CorsPolicy")]
+    [Authorize]
     public class HeroesController : Controller
     {
         private IHeroData _heroData;
@@ -20,7 +21,6 @@ namespace HeroAPI.Controllers
 
         // GET api/heroes
         [HttpGet]
-        [Authorize]
         public IEnumerable<Hero> Get()
         {
             var heroList = _heroData.GetAllHeroes();
@@ -30,7 +30,6 @@ namespace HeroAPI.Controllers
 
         // GET api/heroes/5
         [HttpGet("{id}")]
-        [Authorize]
         public Hero Get(int id)
         {
             if (!IsIdValid(id))
@@ -42,7 +41,6 @@ namespace HeroAPI.Controllers
 
         // POST api/heroes
         [HttpPost]
-        [Authorize]
         public Hero Post([FromBody]HeroViewModel value)
         {
             if (!ModelState.IsValid)
