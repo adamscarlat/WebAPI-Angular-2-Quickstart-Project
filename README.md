@@ -3,6 +3,10 @@ This project is based on the Angular 2 tutorial project- Tour of Heroes (https:/
 
 This project can be used as the starting point of an Angular 2 - ASP.NET Core web application. In order to run the project, clone the repository, complete the prerequisites, configure the backend, configure the client app and start developing. If there are any confusions along the way I will be happy to assist. Shoot me a quick message and I will try to answer as soon as possible.  
 
+## Contents
+
+[Prerequisites](#prerequisites)
+
 ## Prerequisites
 
 ### Editor
