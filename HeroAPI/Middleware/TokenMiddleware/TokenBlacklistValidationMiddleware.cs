@@ -48,8 +48,8 @@ namespace HeroAPI.Middleware.TokenMiddleware
                 return _next(context);
 
             //token was found and is invalid 
-            context.Response.StatusCode = 400;
-            return context.Response.WriteAsync("Bad request.");            
+            context.Response.StatusCode = 401;
+            return context.Response.WriteAsync("invalid token");            
         }
     }
 }

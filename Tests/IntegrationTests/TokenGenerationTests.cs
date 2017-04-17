@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -17,7 +18,6 @@ namespace tests.HeroAPITests.IntegrationTests
         [TestInitialize]
         public void TokenGenerationInitializer() 
         {
-            System.Console.WriteLine(Directory.GetCurrentDirectory());
             _server = new TestServer(new WebHostBuilder()
                 .UseContentRoot("/Users/adamscarlat/Documents/Github/WebAPI-Angular-2-Quickstart-Project/Tests/")
                 .UseStartup<Startup>());
@@ -34,7 +34,43 @@ namespace tests.HeroAPITests.IntegrationTests
             Assert.AreEqual("BadRequest", responseCode);
         }
 
-        
+        [TestMethod]
+        public async Task GetToken_ValidCredentials()
+        {
+            var content = new FormUrlEncodedContent(new[]
+            {
+                new KeyValuePair<string, string>("username", "TESTUSER"),
+                new KeyValuePair<string, string>("password", "secret"),
+            });
+            var response = await _client.PostAsync("/token", content);
 
+            Assert.AreEqual("OK", response.StatusCode.ToString());
+        }
+
+        [TestMethod]
+        public async Task GetToken_InvalidUsername()
+        {
+            var content = new FormUrlEncodedContent(new[]
+            {
+                new KeyValuePair<string, string>("username", "INVALID"),
+                new KeyValuePair<string, string>("password", "secret"),
+            });
+            var response = await _client.PostAsync("/token", content);
+
+            Assert.AreEqual("BadRequest", response.StatusCode.ToString());
+        }
+
+        [TestMethod]
+        public async Task GetToken_InvalidPassword()
+        {
+            var content = new FormUrlEncodedContent(new[]
+            {
+                new KeyValuePair<string, string>("username", "TESTUSER"),
+                new KeyValuePair<string, string>("password", "INVALID"),
+            });
+            var response = await _client.PostAsync("/token", content);
+
+            Assert.AreEqual("BadRequest", response.StatusCode.ToString());
+        }
     }
 }

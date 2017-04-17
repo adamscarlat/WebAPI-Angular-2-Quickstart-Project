@@ -19,8 +19,8 @@ namespace HeroAPI.Services
             if( !_dbContext.Set<TokenStore>().Any(t => t.Token == tokenStoreEntity.Token))
             {
                 _dbContext.TokenStore.Add(tokenStoreEntity);
-                Commit();
             }
+            Commit();
         }
 
         public void AddToken(string token, bool isValidToken)
