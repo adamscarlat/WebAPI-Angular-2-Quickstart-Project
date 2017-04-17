@@ -5,7 +5,11 @@ This project can be used as the starting point of an Angular 2 - ASP.NET Core we
 
 ## Contents
 
-[Prerequisites](#prerequisites)
+1. [Prerequisites](#prerequisites)
+2. [Configure the Web API](#configure-the-web-api)
+3. [Using the JWT](#using-the-jwt)
+4. [Configure the Client App](#configure-the-client-app)
+5. [Unit Test Project](#unit-test-project)
 
 ## Prerequisites
 
