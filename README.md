@@ -87,6 +87,14 @@ Authorization: Bearer [put the token here]
 ```
 If all is set up correctly you should see a 200 response.
 
+### Token invalidation / Logout
+
+The token that is received from the `/token` endpoint has an expiration time that is set in the token options file. It could be however that a user will want to invalidate her token earlier, for example, when logging out of the application. 
+
+In order to invalidate the token, an http request with the token should be sent to the logout endpoint: `/api/auth/logout`. This will put the token in a blacklist that is stored permanently in the database. The middleware `TokenBlacklistValidationMiddleware` checks incoming http requests for blacklisted tokens. 
+
+Keep in mind that this solution is secure but is not good enough for large scale systems. Since incoming requests are checked for token validity, we lose the performance benefits a token provides. In large scale system it is advisable to use a NoSQL database such as Redis to store the blacklisted tokens. 
+
 ## Configure the Client App
 
 To configure the client app we have to install of all the dependencies in the package.json file. After that we start the client server.
