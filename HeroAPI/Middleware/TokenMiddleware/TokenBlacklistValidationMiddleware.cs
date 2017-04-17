@@ -5,6 +5,10 @@ using Microsoft.AspNetCore.Http;
 
 namespace HeroAPI.Middleware.TokenMiddleware
 {
+    /// <summary>
+    /// Middleware to check if incoming token is invalidated. If yes,
+    /// prevent http request from going further and return a 401 Unauthorized
+    /// </summary>
     public class TokenBlacklistValidationMiddleware
     {
         private IAuthData _authData;
@@ -21,11 +25,6 @@ namespace HeroAPI.Middleware.TokenMiddleware
 
         public Task Invoke(HttpContext context)
         {
-            //Todo: check if token is in blacklist and is marked invalid
-                //1. check in cache 
-                //2. if not in cache check in db
-                //3. if found and marked invalid stop the request pipeline
-                // else, continue in request pipeline
             
             Console.WriteLine("In TokenBlacklistValidationMiddleware middleware...");
 

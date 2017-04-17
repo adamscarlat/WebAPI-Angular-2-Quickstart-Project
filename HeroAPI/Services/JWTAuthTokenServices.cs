@@ -6,8 +6,16 @@ using Newtonsoft.Json;
 
 namespace HeroAPI.Services
 {
+    /// <summary>
+    /// Services related to JWT token 
+    /// </summary>
     public class JWTAuthTokenServices
     {
+        /// <summary>
+        /// Extract the JWT token from the request and return it as a string
+        /// </summary>
+        /// <param name="request">Incoming http request</param>
+        /// <returns>JWT token as string</returns>
         public string ExtractJWTTokenFromHttpRequest(HttpRequest request)
         {
             StringValues authHeader = string.Empty;
@@ -25,6 +33,12 @@ namespace HeroAPI.Services
             return string.Empty;
         }
 
+        /// <summary>
+        /// Decoding the JWT and checking if it's expired by comparing it to the
+        /// current epoch time
+        /// </summary>
+        /// <param name="token">Token to be tested</param>
+        /// <returns>True if token is expired</returns>
         public bool IsTokenExpired(string token)
         {
             var tokenExpirationTime = GetTokenExpirationDateTime(token);
@@ -33,6 +47,11 @@ namespace HeroAPI.Services
             return currentTimestamp > tokenExpirationTime;
         }
 
+        /// <summary>
+        /// Decodes the JWT and extracts its expiration time as epoch time
+        /// </summary>
+        /// <param name="token">Token to be tested</param>
+        /// <returns>expiration time in seconds</returns>
         public ulong GetTokenExpirationDateTime(string token)
         {
             if (string.IsNullOrEmpty(token))

@@ -84,6 +84,10 @@ namespace HeroAPI
             
             app.UseMvc();
 
+            //Remove invalidated tokens from Db
+            DbCleaner.RemoveInvalidatedTokens(app.ApplicationServices, new JWTAuthTokenServices());
+
+            //Seed db with initial data
             DbSeeder.SeedDbWithSampleUsers(app.ApplicationServices);
         }
 

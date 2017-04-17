@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace HeroAPI.Controllers
 {
 
+    /// <summary>
+    /// Main data API of the application
+    /// </summary>
     [Route("api/[controller]")]
     [EnableCors("CorsPolicy")]
     [Authorize]
