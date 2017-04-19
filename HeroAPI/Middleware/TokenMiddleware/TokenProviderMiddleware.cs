@@ -11,6 +11,9 @@ using Newtonsoft.Json;
 //Code taken from: https://stormpath.com/blog/token-authentication-asp-net-core
 namespace HeroAPI.Middleware.TokenMiddleware
 {
+    /// <summary>
+    /// JWT token provider
+    /// </summary>
     public class TokenProviderMiddleware
     {
         private readonly RequestDelegate _next;

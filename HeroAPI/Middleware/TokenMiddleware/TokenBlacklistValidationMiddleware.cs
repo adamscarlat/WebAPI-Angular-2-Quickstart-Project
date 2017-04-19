@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Http;
 namespace HeroAPI.Middleware.TokenMiddleware
 {
     /// <summary>
-    /// Check incoming request for invalidated tokens. If found return a bad request
-    /// response.
+    /// Middleware to check if incoming token is invalidated. If yes,
+    /// prevent http request from going further and return a 401 Unauthorized
     /// </summary>
     public class TokenBlacklistValidationMiddleware
     {
@@ -25,7 +25,6 @@ namespace HeroAPI.Middleware.TokenMiddleware
 
         public Task Invoke(HttpContext context)
         {            
-
             var token  = _tokenService.ExtractJWTTokenFromHttpRequest(context.Request);
 
             //No token found. Continue pipeline and let other validation decide (controller, token gen, etc...)
@@ -45,8 +44,8 @@ namespace HeroAPI.Middleware.TokenMiddleware
                 return _next(context);
 
             //token was found and is invalid 
-            context.Response.StatusCode = 400;
-            return context.Response.WriteAsync("Bad request.");            
+            context.Response.StatusCode = 401;
+            return context.Response.WriteAsync("invalid token");            
         }
     }
 }

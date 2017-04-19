@@ -3,6 +3,14 @@ This project is based on the Angular 2 tutorial project- Tour of Heroes (https:/
 
 This project can be used as the starting point of an Angular 2 - ASP.NET Core web application. In order to run the project, clone the repository, complete the prerequisites, configure the backend, configure the client app and start developing. If there are any confusions along the way I will be happy to assist. Shoot me a quick message and I will try to answer as soon as possible.  
 
+## Contents
+
+1. [Prerequisites](#prerequisites)
+2. [Configure the Web API](#configure-the-web-api)
+3. [Using the JWT](#using-the-jwt)
+4. [Configure the Client App](#configure-the-client-app)
+5. [Unit Test Project](#unit-test-project)
+
 ## Prerequisites
 
 ### Editor
@@ -86,6 +94,14 @@ Content-Type: application/x-www-form-urlencoded
 Authorization: Bearer [put the token here]
 ```
 If all is set up correctly you should see a 200 response.
+
+### Token invalidation / Logout
+
+The token that is received from the `/token` endpoint has an expiration time that is set in the token options file. It could be however that a user will want to invalidate her token earlier, for example, when logging out of the application. 
+
+In order to invalidate the token, an http request with the token should be sent to the logout endpoint: `/api/auth/logout`. This will put the token in a blacklist that is stored permanently in the database. The middleware `TokenBlacklistValidationMiddleware` checks incoming http requests for blacklisted tokens. 
+
+Keep in mind that this solution is secure but is not good enough for large scale systems. Since incoming requests are checked for token validity, we lose the performance benefits a token provides. In large scale system it is advisable to use a NoSQL database such as Redis to store the blacklisted tokens. 
 
 ## Configure the Client App
 

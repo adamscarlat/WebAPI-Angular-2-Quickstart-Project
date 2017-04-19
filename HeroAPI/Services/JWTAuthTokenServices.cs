@@ -12,9 +12,9 @@ namespace HeroAPI.Services
     public class JWTAuthTokenServices
     {
         /// <summary>
-        /// Gets the JWT token from an http request
+        /// Extract the JWT token from the request and return it as a string
         /// </summary>
-        /// <param name="request">Http request object</param>
+        /// <param name="request">Incoming http request</param>
         /// <returns>JWT token as string</returns>
         public string ExtractJWTTokenFromHttpRequest(HttpRequest request)
         {
@@ -34,10 +34,11 @@ namespace HeroAPI.Services
         }
 
         /// <summary>
-        /// Checks if the JWT has expired
+        /// Decoding the JWT and checking if it's expired by comparing it to the
+        /// current epoch time
         /// </summary>
-        /// <param name="token">JWT as string</param>
-        /// <returns>true if token is expired, false otherwise</returns>
+        /// <param name="token">Token to be tested</param>
+        /// <returns>True if token is expired</returns>
         public bool IsTokenExpired(string token)
         {
             var tokenExpirationTime = GetTokenExpirationDateTime(token);
@@ -47,10 +48,10 @@ namespace HeroAPI.Services
         }
 
         /// <summary>
-        /// Gets the token expiration datetime 
+        /// Decodes the JWT and extracts its expiration time as epoch time
         /// </summary>
-        /// <param name="token">JWT as string</param>
-        /// <returns>the expiration date time in epoch format as ulong</returns>
+        /// <param name="token">Token to be tested</param>
+        /// <returns>expiration time in seconds</returns>
         public ulong GetTokenExpirationDateTime(string token)
         {
             if (string.IsNullOrEmpty(token))
