@@ -14,6 +14,10 @@ using Microsoft.EntityFrameworkCore;
 
         public DbSet<TokenStore> TokenStore { get; set; }
 
+        /// <summary>
+        /// Setup indexes and table relations
+        /// </summary>
+        /// <param name="builder"></param>
         protected override void OnModelCreating(ModelBuilder builder)
         {
           base.OnModelCreating(builder);

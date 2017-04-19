@@ -6,8 +6,16 @@ using Newtonsoft.Json;
 
 namespace HeroAPI.Services
 {
+    /// <summary>
+    /// Services for JWT related actions.
+    /// </summary>
     public class JWTAuthTokenServices
     {
+        /// <summary>
+        /// Gets the JWT token from an http request
+        /// </summary>
+        /// <param name="request">Http request object</param>
+        /// <returns>JWT token as string</returns>
         public string ExtractJWTTokenFromHttpRequest(HttpRequest request)
         {
             StringValues authHeader = string.Empty;
@@ -25,6 +33,11 @@ namespace HeroAPI.Services
             return string.Empty;
         }
 
+        /// <summary>
+        /// Checks if the JWT has expired
+        /// </summary>
+        /// <param name="token">JWT as string</param>
+        /// <returns>true if token is expired, false otherwise</returns>
         public bool IsTokenExpired(string token)
         {
             var tokenExpirationTime = GetTokenExpirationDateTime(token);
@@ -33,6 +46,11 @@ namespace HeroAPI.Services
             return currentTimestamp > tokenExpirationTime;
         }
 
+        /// <summary>
+        /// Gets the token expiration datetime 
+        /// </summary>
+        /// <param name="token">JWT as string</param>
+        /// <returns>the expiration date time in epoch format as ulong</returns>
         public ulong GetTokenExpirationDateTime(string token)
         {
             if (string.IsNullOrEmpty(token))
@@ -41,12 +59,8 @@ namespace HeroAPI.Services
             var payloadBytes = Convert.FromBase64String(token.Split('.')[1] + "=");
             var payloadStr = Encoding.UTF8.GetString(payloadBytes, 0, payloadBytes.Length);
 
-            Console.WriteLine("Exp string: {0}", payloadStr);
-
             //extract the Exp proprty from deserialized token token 
             var exp = JsonConvert.DeserializeAnonymousType(payloadStr, new { Exp = 0UL }).Exp;
-            
-            Console.WriteLine("Exp: {0}", exp);
             
             return exp;
         }

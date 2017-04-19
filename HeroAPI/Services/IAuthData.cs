@@ -1,5 +1,8 @@
 namespace HeroAPI.Services
 {
+    /// <summary>
+    /// Repository for auth related actions
+    /// </summary>
     public interface IAuthData
     {
         void AddToken(TokenStore tokenStoreEntity);

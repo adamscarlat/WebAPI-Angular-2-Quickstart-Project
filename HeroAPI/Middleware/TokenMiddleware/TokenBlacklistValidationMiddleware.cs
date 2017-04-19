@@ -5,6 +5,10 @@ using Microsoft.AspNetCore.Http;
 
 namespace HeroAPI.Middleware.TokenMiddleware
 {
+    /// <summary>
+    /// Check incoming request for invalidated tokens. If found return a bad request
+    /// response.
+    /// </summary>
     public class TokenBlacklistValidationMiddleware
     {
         private IAuthData _authData;
@@ -20,14 +24,7 @@ namespace HeroAPI.Middleware.TokenMiddleware
         }
 
         public Task Invoke(HttpContext context)
-        {
-            //Todo: check if token is in blacklist and is marked invalid
-                //1. check in cache 
-                //2. if not in cache check in db
-                //3. if found and marked invalid stop the request pipeline
-                // else, continue in request pipeline
-            
-            Console.WriteLine("In TokenBlacklistValidationMiddleware middleware...");
+        {            
 
             var token  = _tokenService.ExtractJWTTokenFromHttpRequest(context.Request);
 
