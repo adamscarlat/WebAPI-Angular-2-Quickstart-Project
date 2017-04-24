@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using HeroAPI.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
@@ -24,27 +25,26 @@ namespace HeroAPI.Controllers
 
         // GET api/heroes
         [HttpGet]
-        public IEnumerable<Hero> Get()
+        public async Task<IEnumerable<Hero>> Get()
         {
-            var heroList = _heroData.GetAllHeroes();
+            var heroList = await _heroData.GetAllHeroes();
             
             return heroList;
         }
 
         // GET api/heroes/5
         [HttpGet("{id}")]
-        public Hero Get(int id)
+        public async Task<Hero> Get(int id)
         {
             if (!IsIdValid(id))
                 return null;
             
-            var hero = _heroData.GetHero(id);
-            return hero;
+            return await _heroData.GetHero(id);
         }
 
         // POST api/heroes
         [HttpPost]
-        public Hero Post([FromBody]HeroViewModel value)
+        public async Task<Hero> Post([FromBody]HeroViewModel value)
         {
             if (!ModelState.IsValid)
                 return null;
@@ -53,14 +53,12 @@ namespace HeroAPI.Controllers
 
             hero.HeroName = value.HeroName;
 
-            var addedHero = _heroData.AddHero(hero);
-
-            return addedHero;
+            return await _heroData.AddHero(hero);
         }
 
         // PUT api/heroes/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]HeroViewModel value)
+        public async Task Put(int id, [FromBody]HeroViewModel value)
         {
             if (!IsIdValid(id))
                 return;
@@ -68,23 +66,23 @@ namespace HeroAPI.Controllers
             if (!ModelState.IsValid)
                 return;
             
-            var hero = _heroData.GetHero(id);
+            var hero = await _heroData.GetHero(id);
 
             if (hero == null)
                 return;
             
             hero.HeroName = value.HeroName;
-            _heroData.Commit();
+            await _heroData.Commit();
         }
 
         // DELETE api/heroes/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
             if (!IsIdValid(id))
                 return;
 
-           _heroData.DeleteHero(id);
+           await _heroData.DeleteHero(id);
         }
 
         private bool IsIdValid(int id)

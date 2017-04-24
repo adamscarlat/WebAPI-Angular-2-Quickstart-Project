@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using HeroAPI.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace HeroAPI.Services
 {
@@ -16,33 +18,37 @@ namespace HeroAPI.Services
             _dbContext = dbContext;
         }
 
-        public IEnumerable<Hero> GetAllHeroes()
+        public async Task<IEnumerable<Hero>> GetAllHeroes()
         {
-            return _dbContext.Set<Hero>().ToList();
+            return await _dbContext.Hero
+                .Select(h => h)
+                .ToListAsync();
         }
 
-        public Hero GetHero(int id)
+        public async Task<Hero> GetHero(int id)
         {
-            return _dbContext.Hero.FirstOrDefault(h => h.HeroId == id);
+            return await _dbContext.Hero
+                .Where(h => h.HeroId == id)
+                .FirstOrDefaultAsync();
         }
 
-        public Hero AddHero(Hero hero)
+        public async Task<Hero> AddHero(Hero hero)
         {
            var addedHero =  _dbContext.Hero.Add(hero).Entity;
-           Commit();
+           await Commit();
            return addedHero;
         }
 
-        public void DeleteHero(int id)
+        public async Task DeleteHero(int id)
         {
             var hero = _dbContext.Hero.FirstOrDefault(p => p.HeroId == id);
             _dbContext.Hero.Remove(hero);
-            Commit();
+            await Commit();
         }
 
-        public int Commit()
+        public Task<int> Commit()
         {
-             return _dbContext.SaveChanges();
+             return _dbContext.SaveChangesAsync();
         }
 
     }
