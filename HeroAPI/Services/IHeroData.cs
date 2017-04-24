@@ -1,5 +1,6 @@
 
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace HeroAPI.Services
 {
@@ -8,10 +9,10 @@ namespace HeroAPI.Services
      /// </summary>
     public interface IHeroData
     {
-        IEnumerable<Hero> GetAllHeroes();
-        Hero GetHero(int id);
-        Hero AddHero(Hero hero);
-        void DeleteHero(int id);
-        int Commit();
+        Task<IEnumerable<Hero>> GetAllHeroes();
+        Task<Hero> GetHero(int id);
+        Task<Hero> AddHero(Hero hero);
+        Task DeleteHero(int id);
+        Task<int> Commit();
     }
 }
