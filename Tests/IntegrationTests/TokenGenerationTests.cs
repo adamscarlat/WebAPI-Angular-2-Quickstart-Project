@@ -1,37 +1,26 @@
 using System.Collections.Generic;
-using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
-using HeroAPI;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.TestHost;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace tests.HeroAPITests.IntegrationTests 
+namespace Tests.HeroAPITests.IntegrationTests
 {
     [TestClass]
-    public class TokenGenerationTests 
+    public class TokenGenerationTests : IntegrationTestsBase
     {
-        private TestServer _server;
-        private HttpClient _client;
-
-        [TestInitialize]
-        public void TokenGenerationInitializer() 
+        [ClassInitialize()]
+        public static void TokenGenerationInitializer(TestContext testContext) 
         {
-            _server = new TestServer(new WebHostBuilder()
-                .UseContentRoot("/Users/adamscarlat/Documents/Github/WebAPI-Angular-2-Quickstart-Project/Tests/")
-                .UseStartup<Startup>());
-
-            _client = _server.CreateClient();
+            TestInitialize();
         }
 
         [TestMethod]
         public async Task GetToken_NoCredentials()
         {   
-            var response = await _client.GetAsync("/token");
+            var response = await _client.GetAsync(TestConfigurations.TokenAPI);
             var responseCode = response.StatusCode.ToString();
 
-            Assert.AreEqual("BadRequest", responseCode);
+            Assert.AreEqual(TestConfigurations.BadRequestCode, responseCode);
         }
 
         [TestMethod]
@@ -39,10 +28,10 @@ namespace tests.HeroAPITests.IntegrationTests
         {
             var content = new FormUrlEncodedContent(new[]
             {
-                new KeyValuePair<string, string>("username", "TESTUSER"),
-                new KeyValuePair<string, string>("password", "secret"),
+                new KeyValuePair<string, string>("username", TestConfigurations.TestUsername),
+                new KeyValuePair<string, string>("password", TestConfigurations.TestPassword),
             });
-            var response = await _client.PostAsync("/token", content);
+            var response = await _client.PostAsync(TestConfigurations.TokenAPI, content);
 
             Assert.AreEqual("OK", response.StatusCode.ToString());
         }
@@ -53,11 +42,11 @@ namespace tests.HeroAPITests.IntegrationTests
             var content = new FormUrlEncodedContent(new[]
             {
                 new KeyValuePair<string, string>("username", "INVALID"),
-                new KeyValuePair<string, string>("password", "secret"),
+                new KeyValuePair<string, string>("password", TestConfigurations.TestPassword),
             });
-            var response = await _client.PostAsync("/token", content);
+            var response = await _client.PostAsync(TestConfigurations.TokenAPI, content);
 
-            Assert.AreEqual("BadRequest", response.StatusCode.ToString());
+            Assert.AreEqual(TestConfigurations.BadRequestCode, response.StatusCode.ToString());
         }
 
         [TestMethod]
@@ -65,12 +54,12 @@ namespace tests.HeroAPITests.IntegrationTests
         {
             var content = new FormUrlEncodedContent(new[]
             {
-                new KeyValuePair<string, string>("username", "TESTUSER"),
+                new KeyValuePair<string, string>("username", TestConfigurations.TestUsername),
                 new KeyValuePair<string, string>("password", "INVALID"),
             });
-            var response = await _client.PostAsync("/token", content);
+            var response = await _client.PostAsync(TestConfigurations.TokenAPI, content);
 
-            Assert.AreEqual("BadRequest", response.StatusCode.ToString());
+            Assert.AreEqual(TestConfigurations.BadRequestCode, response.StatusCode.ToString());
         }
     }
 }
