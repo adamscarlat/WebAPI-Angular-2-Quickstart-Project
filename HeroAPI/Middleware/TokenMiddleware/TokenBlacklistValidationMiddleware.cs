@@ -23,32 +23,40 @@ namespace HeroAPI.Middleware.TokenMiddleware
             _tokenService = tokenServices;
         }
 
-        public Task Invoke(HttpContext context)
+        public async Task Invoke(HttpContext context)
         {
             
             Console.WriteLine("In TokenBlacklistValidationMiddleware middleware...");
 
             var token  = _tokenService.ExtractJWTTokenFromHttpRequest(context.Request);
+            var isTokenValid = false;
 
             //No token found. Continue pipeline and let other validation decide (controller, token gen, etc...)
             if (string.IsNullOrEmpty(token))
-                return _next(context);
+                isTokenValid = true;
 
             TokenStore tokenStoreEntity;
             //TODO: create method to check cache and if not in cache go to db
 
             //not found in cache, check db
-            tokenStoreEntity = _authData.GetToken(token);
+            tokenStoreEntity = await _authData.GetToken(token);
 
             Console.WriteLine("token: {0} \nis valid: {1}", tokenStoreEntity?.Token, tokenStoreEntity?.IsValid);
 
             //if token is not in db or is valid and not expired- consider token not invalidated
             if (tokenStoreEntity == null || (tokenStoreEntity.IsValid && !_tokenService.IsTokenExpired(tokenStoreEntity.Token)))
-                return _next(context);
+                isTokenValid = true;
 
-            //token was found and is invalid 
-            context.Response.StatusCode = 401;
-            return context.Response.WriteAsync("invalid token");            
+            if (!isTokenValid)
+            {
+                //token was found and is invalid 
+                context.Response.StatusCode = 401;
+                await context.Response.WriteAsync("invalid token"); 
+                return;   
+            }
+
+            await _next(context);
+        
         }
     }
 }

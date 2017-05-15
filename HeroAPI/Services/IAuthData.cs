@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+
 namespace HeroAPI.Services
 {
     public interface IAuthData
@@ -6,9 +8,9 @@ namespace HeroAPI.Services
         /// Add token to TokenStore
         /// </summary>
         /// <param name="tokenStoreEntity"></param>
-        void AddToken(TokenStore tokenStoreEntity);
-        void AddToken(string token, bool isValidToken);
-        TokenStore GetToken(string token);
-        int Commit();
+        Task AddToken(TokenStore tokenStoreEntity);
+        Task AddToken(string token, bool isValidToken);
+        Task<TokenStore> GetToken(string token);
+        Task<int> Commit();
     }
 }

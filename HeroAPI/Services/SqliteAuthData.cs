@@ -1,5 +1,7 @@
 using System.Linq;
+using System.Threading.Tasks;
 using HeroAPI.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace HeroAPI.Services
 {
@@ -14,16 +16,16 @@ namespace HeroAPI.Services
             _tokenServices = tokenServices;
         }
         
-        public void AddToken(TokenStore tokenStoreEntity)
+        public async Task AddToken(TokenStore tokenStoreEntity)
         {
             if( !_dbContext.Set<TokenStore>().Any(t => t.Token == tokenStoreEntity.Token))
             {
                 _dbContext.TokenStore.Add(tokenStoreEntity);
             }
-            Commit();
+            await Commit();
         }
 
-        public void AddToken(string token, bool isValidToken)
+        public async Task AddToken(string token, bool isValidToken)
         {
             var tokenStoreEntity = new TokenStore();
             tokenStoreEntity.Token = token;
@@ -33,17 +35,18 @@ namespace HeroAPI.Services
             if (tokenExpirationTime != 0)
                 tokenStoreEntity.ExpirationTime = tokenExpirationTime;
 
-            AddToken(tokenStoreEntity);     
+            await AddToken(tokenStoreEntity);     
         }
 
-        public TokenStore GetToken(string token)
+        public async Task<TokenStore> GetToken(string token)
         {
-           return _dbContext.TokenStore.FirstOrDefault(t => t.Token == token);
+           return await _dbContext.TokenStore
+            .FirstOrDefaultAsync(t => t.Token == token);
         }
 
-        public int Commit()
+        public async Task<int> Commit()
         {
-             return _dbContext.SaveChanges();
+             return await _dbContext.SaveChangesAsync();
         }
 
     }
