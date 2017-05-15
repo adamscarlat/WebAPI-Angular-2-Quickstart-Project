@@ -27,7 +27,6 @@ namespace HeroAPI.Middleware.TokenMiddleware
         {
             
             Console.WriteLine("In TokenBlacklistValidationMiddleware middleware...");
-
             var token  = _tokenService.ExtractJWTTokenFromHttpRequest(context.Request);
             var isTokenValid = false;
 

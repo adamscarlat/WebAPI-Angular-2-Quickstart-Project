@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 namespace HeroAPI.Services
 {
     /// <summary>
-    /// Services related to JWT token 
+    /// Services for JWT related actions.
     /// </summary>
     public class JWTAuthTokenServices
     {
@@ -60,12 +60,8 @@ namespace HeroAPI.Services
             var payloadBytes = Convert.FromBase64String(token.Split('.')[1] + "=");
             var payloadStr = Encoding.UTF8.GetString(payloadBytes, 0, payloadBytes.Length);
 
-            Console.WriteLine("Exp string: {0}", payloadStr);
-
             //extract the Exp proprty from deserialized token token 
             var exp = JsonConvert.DeserializeAnonymousType(payloadStr, new { Exp = 0UL }).Exp;
-            
-            Console.WriteLine("Exp: {0}", exp);
             
             return exp;
         }
