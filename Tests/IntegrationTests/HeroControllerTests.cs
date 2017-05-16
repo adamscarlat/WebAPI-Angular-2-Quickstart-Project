@@ -26,7 +26,7 @@ namespace Tests.HeroAPITests.IntegrationTests
             var heroName = "TestHero";
             var token = await GetTokenHelper();
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            _heroData.AddHero(new Hero(){ HeroName = heroName });
+            await _heroData.AddHero(new Hero(){ HeroName = heroName });
 
             //Act
             var response = await _client.GetAsync("/api/heroes");
@@ -39,7 +39,7 @@ namespace Tests.HeroAPITests.IntegrationTests
             Assert.IsTrue(hero.HeroName == heroName);
 
             //Cleanup
-            _heroData.DeleteHero(hero.HeroId);
+            await _heroData.DeleteHero(hero.HeroId);
                 
         }
 

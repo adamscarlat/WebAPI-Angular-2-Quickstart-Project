@@ -40,7 +40,7 @@ namespace HeroAPI.Middleware.TokenMiddleware
             //not found in cache, check db
             tokenStoreEntity = await _authData.GetToken(token);
 
-            Console.WriteLine("token: {0} \nis valid: {1}", tokenStoreEntity?.Token, tokenStoreEntity?.IsValid);
+            //Console.WriteLine("token: {0} \nis valid: {1}", tokenStoreEntity?.Token, tokenStoreEntity?.IsValid);
 
             //if token is not in db or is valid and not expired- consider token not invalidated
             if (tokenStoreEntity == null || (tokenStoreEntity.IsValid && !_tokenService.IsTokenExpired(tokenStoreEntity.Token)))
