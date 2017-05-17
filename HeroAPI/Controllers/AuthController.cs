@@ -1,7 +1,10 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using HeroAPI.Services;
 using Microsoft.AspNetCore.Mvc;
+using ViewModels;
 
 //TODO: return redirect from all POST requests
 //TODO: change logout to POST
@@ -37,6 +40,20 @@ namespace HeroAPI.Controllers
             
             await _authData.AddToken(token, false);
         }
+
+        [HttpPost]
+        [Route("api/auth/register")]
+        public JsonResult Register([FromBody]NewUserViewModel value)
+        {
+            if (!ModelState.IsValid)
+            {
+                var fieldsErrors = Utilities.CreateFieldErrorDictionary(ModelState);
+
+                return Json(Utilities.CreateJsonErrorResponse(fieldsErrors));
+            }
+            return Json(Utilities.CreateJsonSuccessReponse(string.Format("new user {0} successfully registered", value.Username)));
+        }
+
 
         //Register
         /*

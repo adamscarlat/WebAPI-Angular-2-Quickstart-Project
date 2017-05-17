@@ -4,6 +4,7 @@ using HeroAPI.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using ViewModels;
 
 namespace HeroAPI.Controllers
 {

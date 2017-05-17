@@ -1,12 +1,16 @@
 
 using Newtonsoft.Json;
+using ViewModels.ViewModelValidation;
 
-[ValidateHero]
-public class HeroViewModel
+namespace ViewModels
 {
-    [JsonProperty("id")]
-    public int HeroId { get; set; }
-    
-    [JsonProperty("name")]
-    public string HeroName { get; set; }
+    [ValidateHero]
+    public class HeroViewModel
+    {
+        [JsonProperty("id")]
+        public int HeroId { get; set; }
+        
+        [JsonProperty("name")]
+        public string HeroName { get; set; }
+    }
 }
