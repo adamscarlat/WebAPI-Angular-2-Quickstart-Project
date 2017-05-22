@@ -14,6 +14,8 @@ namespace Tests
 
         public const string TestPassword = "secret";
 
+        public const string TestEmail = "testUser@testDomain.com";
+
         public const string TokenAPI = "/token";
 
 

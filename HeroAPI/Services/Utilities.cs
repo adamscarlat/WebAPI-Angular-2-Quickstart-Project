@@ -10,6 +10,16 @@ namespace HeroAPI.Services
         public static Dictionary<string, List<string>> CreateFieldErrorDictionary(ModelStateDictionary modelState)
         {
             var fieldsErrors = new Dictionary<string, List<string>>();
+
+            return CreateFieldErrorDictionary(modelState, fieldsErrors);
+
+        }
+
+        public static Dictionary<string, List<string>> CreateFieldErrorDictionary(ModelStateDictionary modelState, Dictionary<string, List<string>> fieldsErrors)
+        {
+            if (fieldsErrors == null)
+                return null;
+
             foreach(var key in modelState.Keys)
             {
                 var errorList = new List<string>();
@@ -24,15 +34,16 @@ namespace HeroAPI.Services
         {
             return new {
                 FieldErrors = fieldErrors,
-                IsSuccess = false
+                IsSuccess = "false"
             };
         }
 
-        public static object CreateJsonSuccessReponse(object responseObject)
+        public static object CreateJsonSuccessReponse(object responseObject, string redirectUrl = "")
         {
             return new {
                 ResponseObject = responseObject,
-                IsSuccess = true
+                IsSuccess = "true",
+                RedirectUrl = redirectUrl
             };
         }
     }

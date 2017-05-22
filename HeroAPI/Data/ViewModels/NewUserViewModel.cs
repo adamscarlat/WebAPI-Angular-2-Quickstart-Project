@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using HeroAPI.Services;
 using Newtonsoft.Json;
 using ViewModels.ViewModelValidation;
 
@@ -7,17 +8,19 @@ namespace ViewModels
     public class NewUserViewModel
     {
         [JsonProperty("username")]
-        [Required(ErrorMessage = "Username is a required field")] 
-        [MinLength(3, ErrorMessage = "Username must be at least 3 characters")]
+        [Required(ErrorMessage = ResourceMaster.UsernameRequriedFieldError)] 
+        [MinLength(3, ErrorMessage = ResourceMaster.UsernameRequiredLengthError)]
         public string Username { get; set; }
 
         [JsonProperty("password")]
-        [Required(ErrorMessage = "Password is a required field")] 
-        [ValidatPasswordAttribute(ErrorMessage = "Password must be 8 characters, at least 1 capital, at least 1 number, at least 1 lowercase and at least 1 special character")]
+        [Required(ErrorMessage = ResourceMaster.PasswordRequiredFieldError)] 
+        [ValidatPasswordAttribute(ErrorMessage = ResourceMaster.PasswordTooSimpleError)]
         public string Password { get; set; }
 
-        // [JsonProperty("email")]
-        // public string Email { get; set; }
+        [JsonProperty("email")]
+        [Required(ErrorMessage = ResourceMaster.EmailRequiredFieldError)]
+        [EmailAddress(ErrorMessage = ResourceMaster.InvalidEmailAddressError)]
+        public string Email { get; set; }
 
         // [JsonProperty("firstname")]
         // public string FirstName { get; set; }

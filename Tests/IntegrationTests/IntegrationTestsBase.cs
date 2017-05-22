@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using HeroAPI;
@@ -18,6 +19,7 @@ namespace Tests.HeroAPITests.IntegrationTests
         protected static TestServer _server;
         protected static HttpClient _client;
         protected static IHeroData _heroData;
+        private static ApplicationDbContext _dbContext;
         
         /// <summary>
         /// Initialize the test server host, test client and the databse 
@@ -28,14 +30,15 @@ namespace Tests.HeroAPITests.IntegrationTests
             _server = new TestServer(new WebHostBuilder()
                 .UseContentRoot(TestConfigurations.ContentRootPath)
                 .UseStartup<Startup>());
-                
+            
+            var dbContext = _server.Host.Services.GetService(typeof(ApplicationDbContext)) as ApplicationDbContext;
+            _dbContext = dbContext;
+
             _client = _server.CreateClient();
 
             if (_heroData == null)
-            {
-                var dbContext = _server.Host.Services.GetService(typeof(ApplicationDbContext)) as ApplicationDbContext;
                 _heroData = new SqliteHeroData(dbContext);
-            }
+            
         }
 
         /// <summary>
@@ -57,6 +60,17 @@ namespace Tests.HeroAPITests.IntegrationTests
             var responseObject = JsonConvert.DeserializeObject<TokenRespone>(responeJson);
             return responseObject.AccessToken;
 
+        }
+
+        protected void RemoveUser(string username)
+        {
+            var user = _dbContext.Set<ApplicationUser>().Where(u => u.UserName == username).FirstOrDefault();
+            System.Console.WriteLine("user --> " + user);
+            if (user == null)
+                return;
+
+            _dbContext.Set<ApplicationUser>().Remove(user);
+            _dbContext.SaveChanges();
         }
     }
     
