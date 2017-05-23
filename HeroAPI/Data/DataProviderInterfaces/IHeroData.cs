@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace HeroAPI.Services
+namespace HeroAPI.Data.DataProviderInterfaces
 {
      /// <summary>
      /// Repository for the DB

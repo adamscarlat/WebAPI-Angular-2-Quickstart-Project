@@ -18,11 +18,10 @@ namespace tests.HeroAPITests
         public void GetTokenExpirationDateTime_Test()
         {   
             //Arrange
-            var jwtService = new JWTAuthTokenServices();
             ulong expectedExpTime = 1491701955;
 
             //Act
-            var expTime = jwtService.GetTokenExpirationDateTime(testToken);
+            var expTime = JWTAuthTokenServices.GetTokenExpirationDateTime(testToken);
 
             //Assert
             Assert.IsTrue(expTime == expectedExpTime);
@@ -32,12 +31,11 @@ namespace tests.HeroAPITests
         public void ExtractTokenFromHttpRequest_ValidTokenHeaderTest()
         {
             //Arrange
-            var jwtService = new JWTAuthTokenServices();
             HttpRequest httpRequest = new DefaultHttpRequest(new DefaultHttpContext());
             httpRequest.Headers.Add("Authorization", string.Format("Bearer {0}", testToken));
 
             //Act
-            var extractedToken = jwtService.ExtractJWTTokenFromHttpRequest(httpRequest);
+            var extractedToken = JWTAuthTokenServices.ExtractJWTTokenFromHttpRequest(httpRequest);
 
             //Assert
             Assert.AreEqual(testToken, extractedToken);
@@ -47,12 +45,11 @@ namespace tests.HeroAPITests
         public void ExtractJWTTokenFromHttpRequest_MissingBearer()
         {
             //Arrange
-            var jwtService = new JWTAuthTokenServices();
             HttpRequest httpRequest = new DefaultHttpRequest(new DefaultHttpContext());
             httpRequest.Headers.Add("Authorization", testToken);
 
             //Act
-            var extractedToken = jwtService.ExtractJWTTokenFromHttpRequest(httpRequest);
+            var extractedToken = JWTAuthTokenServices.ExtractJWTTokenFromHttpRequest(httpRequest);
 
             //Assert
             Assert.IsTrue(string.IsNullOrEmpty(extractedToken));
@@ -62,11 +59,10 @@ namespace tests.HeroAPITests
         public void ExtractJWTTokenFromHttpRequest_MissingToken()
         {
             //Arrange
-            var jwtService = new JWTAuthTokenServices();
             HttpRequest httpRequest = new DefaultHttpRequest(new DefaultHttpContext());
 
             //Act
-            var extractedToken = jwtService.ExtractJWTTokenFromHttpRequest(httpRequest);
+            var extractedToken = JWTAuthTokenServices.ExtractJWTTokenFromHttpRequest(httpRequest);
 
             //Assert
             Assert.IsTrue(string.IsNullOrEmpty(extractedToken));

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using HeroAPI.Data.DataProviderInterfaces;
 using HeroAPI.Middleware.TokenMiddleware;
 using HeroAPI.Services;
 using Microsoft.AspNetCore.Identity;
@@ -22,13 +23,11 @@ namespace HeroAPI.Controllers
     public class AuthController : Controller
     {
         private readonly IAuthData _authData;
-        private readonly JWTAuthTokenServices _authServices;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public AuthController(IAuthData authData, JWTAuthTokenServices authServices, UserManager<ApplicationUser> userManager)
+        public AuthController(IAuthData authData, UserManager<ApplicationUser> userManager)
         {
             _authData = authData;
-            _authServices = authServices;
             _userManager = userManager;
         }
 
@@ -39,7 +38,7 @@ namespace HeroAPI.Controllers
         [Route("api/auth/logout")]
         public async Task Logout()
         {
-            var token = _authServices.ExtractJWTTokenFromHttpRequest(HttpContext.Request);
+            var token = JWTAuthTokenServices.ExtractJWTTokenFromHttpRequest(HttpContext.Request);
 
             if (string.IsNullOrEmpty(token))
                 return;
@@ -65,7 +64,7 @@ namespace HeroAPI.Controllers
 
                 if (isRegisterSucceeded)
                 {      
-                    var token = await GetJWTToken(newUserViewModel.Username, newUserViewModel.Password);
+                    var token = await JWTAuthTokenServices.GetJWTToken(newUserViewModel.Username, newUserViewModel.Password);
                     return Json(Utilities.CreateJsonSuccessReponse(
                             new {
                                 AccessToken = token,
@@ -83,43 +82,6 @@ namespace HeroAPI.Controllers
             return Json(Utilities.CreateJsonErrorResponse(fieldsErrors));
         }
 
-        /// <summary>
-        /// Gets a JWT token for the user from the token service 
-        /// </summary>
-        /// <param name="username">username</param>
-        /// <param name="password">user password</param>
-        /// <returns>a JWT string</returns>
-        private async Task<string> GetJWTToken(string username, string password)
-        {
-
-            var formKeyValue = new Dictionary<string, string>();
-            formKeyValue.Add("username", username);
-            formKeyValue.Add("password", password);
-
-            var uri = "http://localhost:5000" + new TokenProviderOptions().Path;
-
-            string content;
-            using (HttpClient httpClient = new HttpClient())
-            {
-                var formContent = new FormUrlEncodedContent(formKeyValue);
-                var httpResponse = await httpClient.PostAsync(uri, formContent);
-                content = await httpResponse.Content.ReadAsStringAsync();
-            }
-
-            if (!string.IsNullOrEmpty(content))
-            {
-                try{
-                    var responseMap = JsonConvert.DeserializeObject<Dictionary<string, string>>(content);
-                    return responseMap["access_token"];
-                }
-                catch (Exception ex){
-                    System.Console.WriteLine(ex.Message);
-                }
-            }
-
-            return "Access token not found";
-
-        }
 
         /// <summary>
         /// Validates a new user to be unique by checking if another user exists with the same

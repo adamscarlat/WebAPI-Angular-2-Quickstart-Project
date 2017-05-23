@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using HeroAPI.Data.DataProviderInterfaces;
 using HeroAPI.Services;
 using Microsoft.AspNetCore.Http;
 
@@ -13,21 +14,17 @@ namespace HeroAPI.Middleware.TokenMiddleware
     {
         private IAuthData _authData;
         private RequestDelegate _next;
-        private JWTAuthTokenServices _tokenService;
 
-        public TokenBlacklistValidationMiddleware(RequestDelegate next, IAuthData authData, 
-        JWTAuthTokenServices tokenServices)
+        public TokenBlacklistValidationMiddleware(RequestDelegate next, IAuthData authData)
         {
             _next = next;
             _authData = authData;
-            _tokenService = tokenServices;
         }
 
         public async Task Invoke(HttpContext context)
         {
             
-            Console.WriteLine("In TokenBlacklistValidationMiddleware middleware...");
-            var token  = _tokenService.ExtractJWTTokenFromHttpRequest(context.Request);
+            var token  = JWTAuthTokenServices.ExtractJWTTokenFromHttpRequest(context.Request);
             var isTokenValid = false;
 
             //No token found. Continue pipeline and let other validation decide (controller, token gen, etc...)
@@ -43,7 +40,7 @@ namespace HeroAPI.Middleware.TokenMiddleware
             //Console.WriteLine("token: {0} \nis valid: {1}", tokenStoreEntity?.Token, tokenStoreEntity?.IsValid);
 
             //if token is not in db or is valid and not expired- consider token not invalidated
-            if (tokenStoreEntity == null || (tokenStoreEntity.IsValid && !_tokenService.IsTokenExpired(tokenStoreEntity.Token)))
+            if (tokenStoreEntity == null || (tokenStoreEntity.IsValid && !JWTAuthTokenServices.IsTokenExpired(tokenStoreEntity.Token)))
                 isTokenValid = true;
 
             if (!isTokenValid)

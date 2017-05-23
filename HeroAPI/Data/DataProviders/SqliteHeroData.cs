@@ -1,14 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using HeroAPI.Data;
+using HeroAPI.Data.DataProviderInterfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace HeroAPI.Services
+namespace HeroAPI.Data.DataProviders
 {
-     /// <summary>
-     /// Implementation for sqlite hero repository
-     /// </summary>
+    /// <summary>
+    /// Implementation for sqlite hero repository
+    /// </summary>
     public class SqliteHeroData : IHeroData
     {
         private ApplicationDbContext _dbContext;

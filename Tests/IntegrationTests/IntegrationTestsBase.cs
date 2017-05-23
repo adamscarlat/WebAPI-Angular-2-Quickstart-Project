@@ -4,7 +4,8 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using HeroAPI;
 using HeroAPI.Data;
-using HeroAPI.Services;
+using HeroAPI.Data.DataProviderInterfaces;
+using HeroAPI.Data.DataProviders;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Newtonsoft.Json;
@@ -65,7 +66,6 @@ namespace Tests.HeroAPITests.IntegrationTests
         protected void RemoveUser(string username)
         {
             var user = _dbContext.Set<ApplicationUser>().Where(u => u.UserName == username).FirstOrDefault();
-            System.Console.WriteLine("user --> " + user);
             if (user == null)
                 return;
 

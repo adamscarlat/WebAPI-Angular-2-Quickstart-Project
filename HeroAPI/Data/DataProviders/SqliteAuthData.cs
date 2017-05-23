@@ -1,19 +1,18 @@
 using System.Linq;
 using System.Threading.Tasks;
-using HeroAPI.Data;
+using HeroAPI.Data.DataProviderInterfaces;
+using HeroAPI.Services;
 using Microsoft.EntityFrameworkCore;
 
-namespace HeroAPI.Services
+namespace HeroAPI.Data.DataProviders
 {
     public class SqliteAuthData : IAuthData
     {
         private ApplicationDbContext _dbContext;
-        private JWTAuthTokenServices _tokenServices;
 
-        public SqliteAuthData(ApplicationDbContext dbContext, JWTAuthTokenServices tokenServices)
+        public SqliteAuthData(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
-            _tokenServices = tokenServices;
         }
         
         public async Task AddToken(TokenStore tokenStoreEntity)
@@ -30,7 +29,7 @@ namespace HeroAPI.Services
             var tokenStoreEntity = new TokenStore();
             tokenStoreEntity.Token = token;
             tokenStoreEntity.IsValid = isValidToken;
-            var tokenExpirationTime = _tokenServices.GetTokenExpirationDateTime(token);
+            var tokenExpirationTime = JWTAuthTokenServices.GetTokenExpirationDateTime(token);
 
             if (tokenExpirationTime != 0)
                 tokenStoreEntity.ExpirationTime = tokenExpirationTime;

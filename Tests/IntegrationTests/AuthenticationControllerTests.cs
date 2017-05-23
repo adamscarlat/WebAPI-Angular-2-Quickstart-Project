@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -73,6 +72,28 @@ namespace Tests.HeroAPITests.IntegrationTests
 
         }
 
+        
+        [TestMethod]
+        public async Task RegisterTest_InvalidRegistration()
+        {
+            //Arrange            
+            var formKeyValue = new Dictionary<string, string>();
+            formKeyValue.Add("username", TestConfigurations.TestUsername);
+            formKeyValue.Add("password", string.Empty);
+            formKeyValue.Add("email", TestConfigurations.TestEmail);
+            var jsonData = JsonConvert.SerializeObject(formKeyValue);
+
+            var formContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            
+            //act
+            var httpResponse = await _client.PostAsync("api/auth/register", formContent);
+            var result = await ExtractContentAsString(httpResponse, "isSuccess");
+
+            //Assert
+            Assert.IsTrue(result.ToString() == "false");
+
+        }
+
         [TestMethod]
         public async Task RegisterTest_ValidRegistration()
         {
@@ -86,14 +107,19 @@ namespace Tests.HeroAPITests.IntegrationTests
             var formContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
             //act
-            var httpResponse = await _client.PostAsync("api/auth/register", formContent);
-            var result = await ExtractContentAsString(httpResponse, "isSuccess");
+            try{
+                var httpResponse = await _client.PostAsync("api/auth/register", formContent);
+                var result = await ExtractContentAsString(httpResponse, "isSuccess");
 
-            //Assert
-            Assert.IsTrue(result.ToString() == "true");
+                //Assert
+                Assert.IsTrue(result.ToString() == "true");
+            }
+            finally{
+                //cleanup
+                RemoveUser("newUser");
+            }
 
-            //cleanup
-            RemoveUser("newUser");
+
         }
 
         private async Task<object> ExtractContentAsString(HttpResponseMessage httpResponse, string key)

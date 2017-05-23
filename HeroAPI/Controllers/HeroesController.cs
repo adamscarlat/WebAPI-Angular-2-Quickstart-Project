@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using HeroAPI.Services;
+using HeroAPI.Data.DataProviderInterfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using ViewModels;
+
+//TODO: return redirect from all POST requests (added as a url in json response)
 
 namespace HeroAPI.Controllers
 {

@@ -13,6 +13,8 @@ using System;
 
 using Microsoft.Extensions.Options;
 using HeroAPI.Middleware.TokenMiddleware;
+using HeroAPI.Data.DataProviderInterfaces;
+using HeroAPI.Data.DataProviders;
 
 namespace HeroAPI
 {
@@ -42,7 +44,6 @@ namespace HeroAPI
             //DI to hero repository
             services.AddScoped<IHeroData, SqliteHeroData>();
             services.AddScoped<IAuthData, SqliteAuthData>();
-            services.AddScoped<JWTAuthTokenServices, JWTAuthTokenServices>();
 
             //configure sqlite as default db
             services.AddDbContext<ApplicationDbContext>(options =>

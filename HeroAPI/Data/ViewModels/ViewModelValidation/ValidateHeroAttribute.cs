@@ -1,7 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
-using ViewModels;
 
 namespace ViewModels.ViewModelValidation
 {

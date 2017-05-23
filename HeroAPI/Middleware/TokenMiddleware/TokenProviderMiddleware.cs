@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 namespace HeroAPI.Middleware.TokenMiddleware
 {
     /// <summary>
-    /// JWT token provider
+    /// JWT token provider. Generate token upon receiving login credentials
     /// </summary>
     public class TokenProviderMiddleware
     {
@@ -111,18 +111,6 @@ namespace HeroAPI.Middleware.TokenMiddleware
             await context.Response.WriteAsync(JsonConvert.SerializeObject(response, new JsonSerializerSettings { Formatting = Formatting.Indented }));
         }
         
-        // private Task<ClaimsIdentity> GetIdentity(string username, string password)
-        // {
-        //     // DON'T do this in production, obviously!
-        //     if (username == "TEST" && password == "TEST123")
-        //     {
-        //         return Task.FromResult(new ClaimsIdentity(new System.Security.Principal.GenericIdentity(username, "Token"), new Claim[] { }));
-        //     }
-
-        //     // Credentials are invalid, or account doesn't exist
-        //     return Task.FromResult<ClaimsIdentity>(null);
-        // }
-
         /// <summary>
         /// Authenticate username and password and create a ClaimsIdentity object 
         /// </summary>
@@ -139,8 +127,6 @@ namespace HeroAPI.Middleware.TokenMiddleware
                 return null;
 
             var isValidLogin= await _userManager.CheckPasswordAsync(user, password);
-            // Console.WriteLine("uname: {0} , password: {1}", username, password);
-            // Console.WriteLine("login result: " + isValidLogin);
             if (isValidLogin)
             {
                 var claims = await _userManager.GetClaimsAsync(user);
