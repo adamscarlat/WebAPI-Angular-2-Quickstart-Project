@@ -1,19 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
 using HeroAPI.Data.DataProviderInterfaces;
-using HeroAPI.Middleware.TokenMiddleware;
 using HeroAPI.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Newtonsoft.Json;
 using ViewModels;
 
-//TODO: return redirect from all POST requests (added as a url in json response)
-//TODO: change logout to POST
-//TODO: add registration
+//TODO: change logout to POST 
+//TODO: Add integration to Login
 
 namespace HeroAPI.Controllers
 {
@@ -29,6 +23,29 @@ namespace HeroAPI.Controllers
         {
             _authData = authData;
             _userManager = userManager;
+        }
+
+        /// <summary>
+        /// Logs in a registered user by communicationg with the token server.
+        /// </summary>
+        /// <param name="userViewModel">registered user's credentials</param>
+        /// <returns>A success response with a access token if login succeeded</returns>
+        [Route("api/auth/login")]
+        public async Task<IActionResult> Login(NewUserViewModel userViewModel)
+        {
+
+            if (userViewModel == null)
+                return BadRequest("Enter valid user credentials");
+
+            var token = await JWTAuthTokenServices.GetJWTToken(userViewModel.Username, userViewModel.Password);
+            var responseObject = new {
+                accessToken = token
+            };
+            var redirectUrl = "api/heroes";
+           
+            var successResponse = Utilities.CreateJsonSuccessReponse(responseObject, redirectUrl);
+            
+            return successResponse;
         }
 
         /// <summary>
@@ -55,7 +72,7 @@ namespace HeroAPI.Controllers
         /// <returns>JSON object to represent the registration success status</returns>
         [HttpPost]
         [Route("api/auth/register")]
-        public async Task<JsonResult> Register([FromBody]NewUserViewModel newUserViewModel)
+        public async Task<IActionResult> Register([FromBody]NewUserViewModel newUserViewModel)
         {
             bool isUserUnique = await ValidateNewUserUnique(newUserViewModel, ModelState);
             if (ModelState.IsValid && isUserUnique)
@@ -63,16 +80,7 @@ namespace HeroAPI.Controllers
                 bool isRegisterSucceeded = await RegisterNewUser(newUserViewModel);
 
                 if (isRegisterSucceeded)
-                {      
-                    var token = await JWTAuthTokenServices.GetJWTToken(newUserViewModel.Username, newUserViewModel.Password);
-                    return Json(Utilities.CreateJsonSuccessReponse(
-                            new {
-                                AccessToken = token,
-                                Message = "User successfully created"
-                            },
-                            "api/Heroes"
-                        ));
-                }
+                    return RedirectToAction("Login", newUserViewModel);
 
                 ModelState.TryAddModelError("Application", ResourceMaster.GeneralApplicationError);
 
@@ -81,7 +89,6 @@ namespace HeroAPI.Controllers
             var fieldsErrors = Utilities.CreateFieldErrorDictionary(ModelState);
             return Json(Utilities.CreateJsonErrorResponse(fieldsErrors));
         }
-
 
         /// <summary>
         /// Validates a new user to be unique by checking if another user exists with the same

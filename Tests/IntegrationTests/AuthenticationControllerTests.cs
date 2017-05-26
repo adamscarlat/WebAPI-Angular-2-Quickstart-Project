@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -65,11 +66,11 @@ namespace Tests.HeroAPITests.IntegrationTests
             
             //act
             var httpResponse = await _client.PostAsync("api/auth/register", formContent);
-            var result = await ExtractContentAsString(httpResponse, "isSuccess");
+            var httpResponseCode = httpResponse.StatusCode;
 
             //Assert
-            Assert.IsTrue(result.ToString() == "false");
-
+            //if redirect didnt happen then registration failed
+            Assert.AreNotEqual(HttpStatusCode.Found, httpResponseCode);
         }
 
         
@@ -87,11 +88,12 @@ namespace Tests.HeroAPITests.IntegrationTests
             
             //act
             var httpResponse = await _client.PostAsync("api/auth/register", formContent);
-            var result = await ExtractContentAsString(httpResponse, "isSuccess");
+
+            var httpResponseCode = httpResponse.StatusCode;
 
             //Assert
-            Assert.IsTrue(result.ToString() == "false");
-
+            //if redirect didnt happen then registration failed
+            Assert.AreNotEqual(HttpStatusCode.Found, httpResponseCode);
         }
 
         [TestMethod]
@@ -109,10 +111,12 @@ namespace Tests.HeroAPITests.IntegrationTests
             //act
             try{
                 var httpResponse = await _client.PostAsync("api/auth/register", formContent);
-                var result = await ExtractContentAsString(httpResponse, "isSuccess");
+
+                var httpResponseCode = httpResponse.StatusCode;
 
                 //Assert
-                Assert.IsTrue(result.ToString() == "true");
+                //if redirect happened then registration succeeded
+                Assert.AreEqual(HttpStatusCode.Found, httpResponseCode);
             }
             finally{
                 //cleanup
@@ -122,22 +126,33 @@ namespace Tests.HeroAPITests.IntegrationTests
 
         }
 
-        private async Task<object> ExtractContentAsString(HttpResponseMessage httpResponse, string key)
+        private async Task<dynamic> ExtractContentAsString(HttpResponseMessage httpResponse, string key)
         {
             if (httpResponse == null)
                 return null;
             
             var content = await httpResponse.Content.ReadAsStringAsync();
+            System.Console.WriteLine("content: " + content);
             if (!string.IsNullOrEmpty(content))
             {
-                var responseMap = JsonConvert.DeserializeObject<Dictionary<string, object>>(content);
-
-                object message;
-                responseMap.TryGetValue(key, out message);
-
-                return message;
+                dynamic jsonResponse = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject(content));
+                System.Console.WriteLine("dynamic json: " + jsonResponse);
+                return jsonResponse;
             }
+
             return null;
+
+            // var content = await httpResponse.Content.ReadAsStringAsync();
+            // if (!string.IsNullOrEmpty(content))
+            // {
+            //     var responseMap = JsonConvert.DeserializeObject<Dictionary<string, object>>(content);
+
+            //     object message;
+            //     responseMap.TryGetValue(key, out message);
+
+            //     return message;
+            // }
+            // return null;
         }
     }
 }

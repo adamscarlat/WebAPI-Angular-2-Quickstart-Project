@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace HeroAPI.Services
@@ -29,21 +30,34 @@ namespace HeroAPI.Services
             return fieldsErrors;
         }
 
-        public static object CreateJsonErrorResponse(Dictionary<string, List<string>> fieldErrors)
+        public static JsonResult CreateJsonErrorResponse(Dictionary<string, List<string>> fieldErrors)
         {
-            return new {
+            var payload = new {
                 FieldErrors = fieldErrors,
                 IsSuccess = "false"
             };
+
+            JsonResult jsonResult = new JsonResult(payload);
+
+            return jsonResult;
+
+            //return await Task.Factory.StartNew(() => JsonConvert.SerializeObject(payload));
         }
 
-        public static object CreateJsonSuccessReponse(object responseObject, string redirectUrl = "")
+        public static JsonResult CreateJsonSuccessReponse(object responseObject, string redirectUrl = "")
         {
-            return new {
+            var payload = new {
                 ResponseObject = responseObject,
                 IsSuccess = "true",
                 RedirectUrl = redirectUrl
             };
+
+            JsonResult jsonResult = new JsonResult(payload);
+            
+            return jsonResult;
+
+            //return await Task.Factory.StartNew(() => JsonConvert.SerializeObject(payload));
+
         }
     }
 }

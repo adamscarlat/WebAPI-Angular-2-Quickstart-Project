@@ -1,16 +1,16 @@
 
+using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
-using ViewModels.ViewModelValidation;
 
 namespace ViewModels
 {
-    [ValidateHero]
     public class HeroViewModel
     {
         [JsonProperty("id")]
         public int HeroId { get; set; }
         
         [JsonProperty("name")]
+        [Required(ErrorMessage = "Hero name is required")] 
         public string HeroName { get; set; }
     }
 }

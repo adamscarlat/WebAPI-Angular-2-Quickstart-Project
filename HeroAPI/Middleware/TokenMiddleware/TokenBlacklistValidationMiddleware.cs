@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using HeroAPI.Data.DataProviderInterfaces;
 using HeroAPI.Services;

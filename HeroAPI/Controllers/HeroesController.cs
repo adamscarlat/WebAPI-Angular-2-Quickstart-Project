@@ -1,12 +1,14 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using HeroAPI.Data.DataProviderInterfaces;
+using HeroAPI.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using ViewModels;
 
-//TODO: return redirect from all POST requests (added as a url in json response)
+//TODO: return redirect from all POST requests (redirect to action) - Put, Delete left
+//TODO: add integration tests for Post, Put, Delete
 
 namespace HeroAPI.Controllers
 {
@@ -47,16 +49,24 @@ namespace HeroAPI.Controllers
 
         // POST api/heroes
         [HttpPost]
-        public async Task<Hero> Post([FromBody]HeroViewModel value)
+        public async Task<IActionResult> Post([FromBody]HeroViewModel value)
         {
             if (!ModelState.IsValid)
-                return null;
+            {
+                var errorMap = Utilities.CreateFieldErrorDictionary(ModelState);
+                var errorResponse = Utilities.CreateJsonErrorResponse(errorMap);
+                return BadRequest(errorResponse);
+            }
 
             var hero = new Hero();
-
             hero.HeroName = value.HeroName;
+            
+            var newHero = await _heroData.AddHero(hero);
 
-            return await _heroData.AddHero(hero);
+            if (newHero != null)
+                return RedirectToAction("Get");
+
+            return BadRequest("Error occured while saving new hero");
         }
 
         // PUT api/heroes/5
