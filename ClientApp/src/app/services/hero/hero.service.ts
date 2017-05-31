@@ -30,6 +30,7 @@ export class HeroService {
 
 	constructor(private http: Http) { 
 		this.headers.append('Access-Control-Allow-Origin' , 'http://localhost:5000');
+		this.headers.append('Authorization', 'Bearer '+ localStorage.getItem('auth_token'))
 		this.options = new RequestOptions({ headers: this.headers });
 	}
 
@@ -47,7 +48,8 @@ export class HeroService {
 
 	getHero(id: number): Promise<Hero> {
 	  const url = `${this.heroesUrl}/${id}`;
-	  return this.http.get(url)
+	  
+	  return this.http.get(url, this.options)
 	    .toPromise()
 	    .then(response => {
 			let hero = this.createHeroObject(response.json());
@@ -67,7 +69,7 @@ export class HeroService {
 
 	create(name: string): Promise<Hero> {
 	  return this.http
-	    .post(this.heroesUrl, JSON.stringify({name: name}), this.options)
+	    .post(this.heroesUrl, JSON.stringify({name: name, id : 1}), this.options)
 	    .toPromise()
 	    .then(res => this.createHeroObject(res.json()))
 	    .catch(this.handleError);

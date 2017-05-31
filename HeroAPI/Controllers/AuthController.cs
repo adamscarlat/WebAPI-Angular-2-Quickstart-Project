@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using HeroAPI.Data.DataProviderInterfaces;
 using HeroAPI.Services;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -14,6 +15,7 @@ namespace HeroAPI.Controllers
     /// <summary>
     /// All authentication related action that require an API endpoint
     /// </summary>
+    [EnableCors("CorsPolicy")]
     public class AuthController : Controller
     {
         private readonly IAuthData _authData;
@@ -30,14 +32,18 @@ namespace HeroAPI.Controllers
         /// </summary>
         /// <param name="userViewModel">registered user's credentials</param>
         /// <returns>A success response with a access token if login succeeded</returns>
+        [HttpPost]
         [Route("api/auth/login")]
-        public async Task<IActionResult> Login(NewUserViewModel userViewModel)
+        public async Task<IActionResult> Login([FromBody]NewUserViewModel userViewModel)
         {
-
             if (userViewModel == null)
                 return BadRequest("Enter valid user credentials");
 
             var token = await JWTAuthTokenServices.GetJWTToken(userViewModel.Username, userViewModel.Password);
+
+            if (string.IsNullOrEmpty(token))
+                return BadRequest("Invalid username or password");
+
             var responseObject = new {
                 accessToken = token
             };

@@ -2,6 +2,7 @@ import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
 import { HttpModule }    from '@angular/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 // Imports for loading & configuring the in-memory web api
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -13,7 +14,12 @@ import { HeroesComponent } from './components/hero-list/heroes.component';
 import { HeroService } from './services/hero/hero.service';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AppRoutingModule } from './router/app-routing.module';
-import { HeroSearchComponent } from './components/hero-search/hero-search.component'
+import { HeroSearchComponent } from './components/hero-search/hero-search.component';
+import { UserService } from './services/user/user.service';
+import { LoggedInGuard } from './login/logged-in.guard';
+import { LoginComponent } from './login/login.component';
+
+
 
 /*
 Angular Modules help organize an application into cohesive blocks of functionality.
@@ -28,7 +34,7 @@ making some of them public so external components can use them.
 @NgModule({
 
   //other modules whose exported classes are needed by component templates declared in this module
-  imports: [BrowserModule, FormsModule, AppRoutingModule, HttpModule, 
+  imports: [BrowserModule,ReactiveFormsModule, FormsModule, AppRoutingModule, HttpModule, 
           //InMemoryWebApiModule.forRoot(InMemoryDataService),
    ],
 
@@ -37,13 +43,13 @@ making some of them public so external components can use them.
   exports:		[],
 
   //the view classes that belong to this module. user defined components, directives and pipes
-  declarations: [ AppComponent, HeroDetailComponent, HeroesComponent, DashboardComponent, HeroSearchComponent ],
+  declarations: [ AppComponent, HeroDetailComponent, HeroesComponent, DashboardComponent, HeroSearchComponent, LoginComponent ],
 
   //the main application view, called the root component, that hosts all other app views. Only the root module should set this bootstrap property
   bootstrap:    [ AppComponent ],
   
   //used for dependency injection- creators of services that this module contributes to the global collection of services; they become accessible in all parts of the app.
-  providers: 	[ HeroService ],
+  providers: 	[ HeroService, UserService, LoggedInGuard ],
 
 })
 export class AppModule { }

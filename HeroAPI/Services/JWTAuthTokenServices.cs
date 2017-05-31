@@ -102,7 +102,7 @@ namespace HeroAPI.Services
                 }
             }
 
-            return "Access token not found";
+            return string.Empty;
 
         }
     }

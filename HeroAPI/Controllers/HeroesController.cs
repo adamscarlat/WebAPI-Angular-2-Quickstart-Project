@@ -9,6 +9,7 @@ using ViewModels;
 
 //TODO: return redirect from all POST requests (redirect to action) - Put, Delete left
 //TODO: add integration tests for Post, Put, Delete
+//TODO: private user data
 
 namespace HeroAPI.Controllers
 {
@@ -64,7 +65,9 @@ namespace HeroAPI.Controllers
             var newHero = await _heroData.AddHero(hero);
 
             if (newHero != null)
-                return RedirectToAction("Get");
+                return Redirect("http://localhost:5000/api/heroes/" + newHero.HeroId);
+                //how to return new hero AND redirect???
+                //return RedirectToAction("Get", new {newHero.HeroId}); 
 
             return BadRequest("Error occured while saving new hero");
         }
